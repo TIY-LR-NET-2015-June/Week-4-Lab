@@ -44,4 +44,3 @@ Nightmare Mode
 
 1. Add a user authentication system. So to be able to create, edit, delete posts requires authentication
 2. The authentication system needs a login page and authenticate against a hard-coded list of usernames and passwords.
-3. 
