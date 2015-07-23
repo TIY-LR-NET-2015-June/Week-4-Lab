@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
-using System.Web.UI;
+
 
 namespace WebApplication1.Controllers
 {
@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
         // GET: Person
         public ActionResult Index()
         {
-            return View();
+            return View(HttpContext.Application["PersonList"]);
         }
 
         // GET: Person/Details/5
@@ -32,12 +32,13 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Create(Person p)
         {
-            if ((List<Person>) Session["PersonList"] == null)
+            if (HttpContext.Application["PersonList"] == null)
             {
                 List<Person> personlist = new List<Person>();
-                Application["PersonList"] = personlist;
+                 HttpContext.Application["PersonList"] = personlist;
             }
-            Application["PersonList"].Add(p);
+            ((List<Person>)HttpContext.Application["PersonList"]).Add(p);
+            
             try
             {
                 // TODO: Add insert logic here
