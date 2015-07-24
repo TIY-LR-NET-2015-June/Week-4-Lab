@@ -141,6 +141,16 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Content\assets\beer.jpg" />
+    <Content Include="Content\assets\bottles.jpg" />
+    <Content Include="Content\assets\iron-yard-logo.svg" />
+    <Content Include="Content\assets\mike.jpg" />
+    <Content Include="Content\assets\paddleboarder.jpg" />
+    <Content Include="Content\assets\surfboarddude.jpg" />
+    <Content Include="Content\assets\tiy-standard-logo.png" />
+    <Content Include="Content\assets\wave-icon.png" />
+    <Content Include="Content\assets\wave.jpg" />
+    <Content Include="Content\assets\zachgalifanakis.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -157,7 +167,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Article\Index.cshtml" />
-    <Content Include="Views\Article\Edit.cshtml" />
     <Content Include="Views\Article\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
