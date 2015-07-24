@@ -13,16 +13,14 @@ namespace Week4_Lab.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult BlogPost()
         {
-            ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult NewPost()
         {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

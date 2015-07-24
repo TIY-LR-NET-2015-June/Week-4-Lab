@@ -115,69 +115,34 @@ button#share {
         -ms-filter: "FlipH";
 }
 
-div#archive1 {
+div#blogArchive {
+    background-color: aliceblue;
+    border-color: rebeccapurple;
+}
+
+.olderPost {
         float:left;
-        margin-left: 3em;
-        background: url(../img/img1.jpg) no-repeat;
-        background-size: 100%;
-        width: 75%;
-        height: 229px;
+        width: 25%;
         position: relative;
 
     }
-        div#archive1:hover {        
+        .olderPost:hover {        
         opacity: 0.6;
-        background-image: url(../img/gif1.gif);
+        cursor: pointer;
     }
-div#archive2 {
-        float:left;
-        margin-left: 3em;
-        background: url(../img/img2.jpg) 0 0px no-repeat;
-        background-size: 100% 100%;
-        width: 75%;
-        height: 229px;
-        position: relative;
 
-    }
-    div#archive2:hover {        
-        opacity: 0.6;
-        background-image: url(../img/gif2.gif);
-    }
-div#archive3 {
-        float:left;
-        margin-left: 3em;
-        background: url(../img/img3.jpg) 0 0px no-repeat;
-        background-size: 100% 100%;
-        width: 75%;
-        height: 229px;
-        position: relative;
-
-    }
-    div#archive3:hover {        
-        opacity: 0.6;
-        background-image: url(../img/gif3.gif);
-    }
-div#archive4 {
-        float:left;
-        margin-left: 3em;
-        background: url(../img/img4.jpg) 0 0px no-repeat;
-        background-size: 100% 100%;
-        width: 75%;
-        height: 229px;
-        position: relative;
-
-    }
-    div#archive4:hover {        
-        opacity: 0.6;
-        background-image: url(../img/gif4.gif);
-    }
-    div#archive1content {
-    	position: absolute;
-    	bottom: 0;
-    	left: 0;
+img#oldPostImg {
+    width: 100%;
+}
+img#oldPostImg:hover{
+    cursor: pointer;
+    
+}
+    h3#oldPost {
+        position:absolute;
+        bottom: 0;
+        left: 5px;
     	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    	font-size: 40px;
-  		font-weight: 800;
   		color: white;
     }
 
@@ -194,7 +159,7 @@ footer#archive {
 div#archive1 {
         float:left;
         margin-left: 0;
-        background: url(../img/img1.jpg) no-repeat;
+        background: url(/img/img1.jpg) no-repeat;
         background-size: 100% 100%;
         width: 25%;
         height: 229px;
@@ -207,7 +172,7 @@ div#archive1 {
 div#archive2 {
         float:left;
         margin-left: 0;
-        background: url(../img/img2.jpg) 0 0px no-repeat;
+        background: url(/img/img2.jpg) 0 0px no-repeat;
         background-size: 100% 100%;
         width: 25%;
         height: 229px;
@@ -220,7 +185,7 @@ div#archive2 {
 div#archive3 {
         float:left;
         margin-left: 0;
-        background: url(../img/img3.jpg) 0 0px no-repeat;
+        background: url(/img/img3.jpg) 0 0px no-repeat;
         background-size: 100% 100%;
         width: 25%;
         height: 229px;
@@ -233,7 +198,7 @@ div#archive3 {
 div#archive4 {
         float:left;
         margin-left: 0;
-        background: url(../img/img4.jpg) 0 0px no-repeat;
+        background: url(/img/img4.jpg) 0 0px no-repeat;
         background-size: 100% 100%;
         width: 25%;
         height: 229px;
@@ -256,7 +221,7 @@ div#archive4 {
 div#slinksterbutton {
         display:block;
         float:left;
-        background:url(content/assets/thumbnails/design/slinkster_sprite.jpg) 0 0px no-repeat;
+        background:url(/.content/assets/thumbnails/design/slinkster_sprite.jpg) 0 0px no-repeat;
         width: 150px;
         height: 150px;
         margin:2px;
