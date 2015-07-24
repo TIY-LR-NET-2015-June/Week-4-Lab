@@ -1,4 +1,4 @@
-﻿@model Week4_Lab.Models.NewPost
+﻿@model Week4_Lab.Models.Post
 @Html.IdForModel()
 
 @{
@@ -6,14 +6,13 @@
     Layout = "~/Views/Shared/Blog_Layout.cshtml";
 }
 
-<h2>NewPost</h2>
+<h2>Create New Post</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>NewPost</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
