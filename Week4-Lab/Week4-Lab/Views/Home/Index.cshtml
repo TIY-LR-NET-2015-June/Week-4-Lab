@@ -1,31 +1,81 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Blog_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!-- Main Content -->
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-8">
+            <a href="#">
+                <h2 class="post-title">
+                    Share The Stoke This International Surfing Day!
+                </h2>
+            </a>
+            <p class="post-meta"> <img width="40" src="img/profile-circle.png" /><a href="#">Anne Marie</a> on September 24, 2014</p>
+            <p>June 20 is the day to not only paddle out and catch a few waves, but to participate, protect and enjoy your favorite breaks and beaches. This year marks the 11th anniversary of Surfrider Foundation’s International Surfing Day, raising awareness for the conservation of our coasts through research and education.</p>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            <h3>Whoa, that's radical!</h3>
+
+            <p>With Surfrider Foundation hosting over 200 events across the globe, from film screenings to surf contests and beach clean ups, it’s easy to find an International Surfing Day event near you. To stay informed on International Surfing Day updates from our athletes across the globe, follow the #ISD15 hashtag on social media as well as ROXY on Instagram and Twitter.</p>
+
+            <p>We’re excited about the 4th annual London Surf / Film Festival coming up this week in London, UK. The line up is amazing, including film documentaries featuring photographer Chris Burkard and surf artist Matt Beard. We’re stoked that our Founder, Andrew was on the screening panel, so we can personally recommend the awesome line up of films! See below for details, you don’t want to miss this!Presented by Reef, the 4th annual London Surf / Film Festival hits the capital 9 – 12 October. Hosted at Genesis, E1 London Surf / Film Festival is the UK’s largest celebration of contemporary surf culture bringing to theses shores four nights of the very best surf films from around the globe – a hand picked line up of must-see premieres to inspire, excite & entertain while redefining the parameters of possibility. Accompanied by filmmaker Q+A’s and talks from waveriding’s most exciting heroes and icons including 5x World Champion Stephanie Gilmore plus music, art, artisans and more, this saline hit of inspiration is a must for anyone of a saltwater persuasion.</p>
+
+            <span class="hidden-xs">
+                <button id="comments">Read Comments</button>
+                <button id="readlater">Read Later</button>
+            </span>
+            <span><button id="share"><img width="40" src="img/share-post.png">Share This Post</button></span>
+
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <div>
+                <p align="center"><img width="70" src="img/profile-circle.png" /><br />Anne Marie<br /><a href="#">Twitter</a> <a href="#">Facebook</a> <a href="#">Instagram</a></p>
+            </div>
+
+            <div align="center">
+                <div id="adspace"><a href="#"><img id="ad" src="img/ad.jpg"></a></div>
+                <div id="adinfo"><h6 align="right"><a href="#">About this ad</a></h6></div>
+            </div>
+
+            <br />
+            <div align="left">
+                <h3 id="sidebar">Sidebar Section Heading</h3>
+                <p class="sidebar">
+                    Reptilian green the wrinkled throat,
+                    Green as a bough of yew the beard;
+                    He bent his head, and so I smote;
+                    Then for a thought my vision cleared.
+
+                    The head dropped clean; he rose and walked;
+                    He fixed his fingers in the hair;
+                    The head was unabashed and talked;
+                    I understood what I must dare.
+                </p>
+            </div>
+
+        </div>
     </div>
 </div>
+<hr>
+<!-- Footer -->
+    <br />
+<h1 id="topposts" align="center">MOST POPULAR POSTS</h1>
+    <br />
+<footer id="archive">
+    <div id="archive1">
+        <a href=""><div id="archive1content">Awesome Headline</div></a>
+    </div>
+    <div id="archive2">
+        <a href=""><div id="archive1content">Awesome Headline</div></a>
+    </div>
+    <div id="archive3">
+        <a href=""><div id="archive1content">Another Longer Headline</div></a>
+    </div>
+    <div id="archive4">
+        <a href=""><div id="archive1content">Awesome Headline</div></a>
+    </div>
+</footer>
+
