@@ -70,8 +70,14 @@ namespace WebApplication1.Controllers
 
         // POST: Article/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Article editedArticle)
         {
+            List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
+            Article oldArticle = ArticleList.Find(x => x.Id == id);
+            ArticleList.Remove(oldArticle);
+            editedArticle.Id = id;
+            ArticleList.Add(editedArticle);
+            HttpContext.Application["ArticleList"] = ArticleList;
             try
             {
                 // TODO: Add update logic here
