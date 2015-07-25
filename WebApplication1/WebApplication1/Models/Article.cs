@@ -8,7 +8,11 @@ using System.Web;
 namespace WebApplication1.Models
 {
     public class Article
-    {[DisplayName("Enter Your Name")]
+    {   
+        [Key]
+        public int Id { get; set; }
+
+        [DisplayName("Enter Your Name")]
         [Required(ErrorMessage = "please let us now who you are")]
         public string Author { get; set; }
 
