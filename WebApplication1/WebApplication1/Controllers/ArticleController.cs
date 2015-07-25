@@ -18,7 +18,9 @@ namespace WebApplication1.Controllers
         // GET: Article/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
+            Article a = ArticleList.Find(x => x.Id == id);
+            return View(a);
         }
 
         // GET: Article/Create
@@ -93,17 +95,22 @@ namespace WebApplication1.Controllers
         // GET: Article/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
+            Article a = ArticleList.Find(x => x.Id == id);
+            return View(a);
         }
 
         // POST: Article/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Article article)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
+                Article a = ArticleList.Find(x => x.Id == id);
+                ArticleList.Remove(a);
+                HttpContext.Application["ArticleList"] = ArticleList;
                 return RedirectToAction("Index");
             }
             catch
