@@ -107,28 +107,8 @@ li{
  }
  #popular-posts div{
     padding: 0px;
-    
  }
  #post1{
-     background-image: url("assets/surfboarddude.jpg");
-     background-size: cover;
-     background-position:center;
-     height:20em;
- }
- #post2{
-     background-image:url("assets/beer.jpg");
-     background-size: cover;
-     background-position:center;
-     height:20em;
- }
- #post3{
-     background-image:url("assets/zachgalifanakis.jpg");
-     background-size: cover;
-     background-position:center;
-     height:20em;
- }
- #post4{
-     background-image:url("assets/bottles.jpg");
      background-size: cover;
      background-position:center;
      height:20em;
@@ -162,6 +142,8 @@ li{
 }
 .overlay:hover{
     background: rgba(180, 180, 0, 0);
+    color: black;
+    font-size: 3em;
 }
 .tint{
     background: rgba(85, 180, 180, 0.8);
