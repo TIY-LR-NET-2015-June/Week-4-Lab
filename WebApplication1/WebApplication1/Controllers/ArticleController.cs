@@ -12,14 +12,18 @@ namespace WebApplication1.Controllers
         // GET: Article
         public ActionResult Index()
         {
+            if (HttpContext.Application["ArticleList"] == null)
+            {
+                return RedirectToAction ("Main");
+            }
             return View(HttpContext.Application["ArticleList"]);
         }
 
         // GET: Article/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
             List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
-            Article a = ArticleList.Find(x => x.Id == id);
+            Article a = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
             return View(a);
         }
 
@@ -38,17 +42,9 @@ namespace WebApplication1.Controllers
             {
                 return View(a);
             }
-            if (HttpContext.Application["ArticleList"] == null)
-            {
-                List<Article> ArticleList = new List<Article>();
-                HttpContext.Application["ArticleList"] = ArticleList;
-            }
-            if (HttpContext.Application["ArticleCounter"] == null)
-            {
-                HttpContext.Application["ArticleCounter"] = 0;
-            }
-            HttpContext.Application["ArticleCounter"] = (int)HttpContext.Application["ArticleCounter"] + 1;
-            a.Id = (int)HttpContext.Application["ArticleCounter"];
+           
+            a.Id = Guid.NewGuid();
+
             ((List<Article>)HttpContext.Application["ArticleList"]).Add(a);
             try
             {
@@ -63,26 +59,24 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Article/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
-            List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
-            Article a = ArticleList.Find(x => x.Id == id);
+            Article a = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
             return View(a);
         }
 
         // POST: Article/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Article editedArticle)
+        public ActionResult Edit(Guid id, Article editedArticle)
         {
-            List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
-            Article oldArticle = ArticleList.Find(x => x.Id == id);
-            ArticleList.Remove(oldArticle);
-            editedArticle.Id = id;
-            ArticleList.Add(editedArticle);
-            HttpContext.Application["ArticleList"] = ArticleList;
+            
             try
             {
                 // TODO: Add update logic here
+                Article oldArticle = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
+                ((List<Article>)HttpContext.Application["ArticleList"]).Remove(oldArticle);
+                editedArticle.Id = id;
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(editedArticle);
 
                 return RedirectToAction("Index");
             }
@@ -93,25 +87,22 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Article/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
 
-            List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
-            Article a = ArticleList.Find(x => x.Id == id);
+            Article a = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
             return View(a);
         }
 
         // POST: Article/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, Article article)
+        public ActionResult Delete(Guid id, Article article)
         {
             try
             {
                 // TODO: Add delete logic here
-                List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
-                Article a = ArticleList.Find(x => x.Id == id);
-                ArticleList.Remove(a);
-                HttpContext.Application["ArticleList"] = ArticleList;
+                Article a = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
+                ((List<Article>)HttpContext.Application["ArticleList"]).Remove(a);
                 return RedirectToAction("Index");
             }
             catch
@@ -148,7 +139,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art1.AuthorPicture = "~/Content/assets/mike.jpg";
                 art1.Date = DateTime.Today;
                 art1.isAdvertisement = false;
-                art1.Id = 1;
+                art1.Id = Guid.NewGuid();
 
                 art2.Author = "Tom Slick";
                 art2.Headline = "Another Cool Post!";
@@ -165,7 +156,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art2.AuthorPicture = "~/Content/assets/mike.jpg";
                 art2.Date = DateTime.Today;
                 art2.isAdvertisement = false;
-                art2.Id = 2;
+                art2.Id = Guid.NewGuid();
 
                 art3.Author = "Janet Reno";
                 art3.Headline = "Post Title";
@@ -182,7 +173,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art3.AuthorPicture = "~/Content/assets/mike.jpg";
                 art3.Date = DateTime.Today;
                 art3.isAdvertisement = false;
-                art3.Id = 3;
+                art3.Id = Guid.NewGuid();
 
                 art4.Author = "Janet Reno";
                 art4.Headline = "Post Title";
@@ -199,7 +190,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art4.AuthorPicture = "~/Content/assets/mike.jpg";
                 art4.Date = DateTime.Today;
                 art4.isAdvertisement = false;
-                art4.Id = 4;
+                art4.Id = Guid.NewGuid();
 
                 art5.Author = "Janet Reno";
                 art5.Headline = "Post Title";
@@ -216,7 +207,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art5.AuthorPicture = "~/Content/assets/mike.jpg";
                 art5.Date = DateTime.Today;
                 art5.isAdvertisement = false;
-                art5.Id = 5;
+                art5.Id = Guid.NewGuid();
 
                 ad1.Author = "Janet Reno";
                 ad1.Headline = "Post Title";
@@ -233,7 +224,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 ad1.AuthorPicture = "~/Content/assets/mike.jpg";
                 ad1.Date = DateTime.Today;
                 ad1.isAdvertisement = true;
-                ad1.Id = 6;
+                ad1.Id = Guid.NewGuid();
 
 
                 
@@ -244,17 +235,14 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art5);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(ad1);
 
-            List<Article>DisplayList = new List<Article>();
-            List<Article> TempList = (List<Article>)HttpContext.Application["ArticleList"];
-            TempList.OrderBy(x => x.Date);
-            for (int i = 0; i < 4; i++)
+                ((List<Article>)HttpContext.Application["ArticleList"]).OrderBy(x => x.Date);
+            ((List<Article>)HttpContext.Application["ArticleList"]).Reverse();
+            List<Article> DisplayList = new List<Article>();
+            for (int i = 0; i < 6; i++)
             {
-                Article nextArticle = TempList.Where(x=>x.isAdvertisement == false).Last();
+                Article nextArticle = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(i);
                 DisplayList.Add(nextArticle);
-                TempList.Remove(nextArticle);
             }
-            Article nextAdvert = TempList.Where(x=>x.isAdvertisement == true).Last();
-            DisplayList.Add(nextAdvert);
             return View(DisplayList);
         }
         

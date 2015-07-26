@@ -10,7 +10,7 @@ namespace WebApplication1.Models
     public class Article
     {   
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("Enter Your Name")]
         [Required(ErrorMessage = "please let us now who you are")]
