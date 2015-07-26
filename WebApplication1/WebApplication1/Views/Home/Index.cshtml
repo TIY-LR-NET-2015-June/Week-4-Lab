@@ -1,197 +1,70 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Surf & Paddle</title>
+﻿@model IEnumerable<WebApplication1.Models.Article>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link href="~/Content/Site.css" rel="stylesheet">
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body>
-    <div id="top-banner">
-        <!--top banner section-->
-        <div class="tint">
-            <nav id="top-navbar">
-                <!--top navbar section-->
-                <!--right side links-->
-                <ul class="pull-right hide-when-small">
-                    <li><a href="#">ABOUT</a></li>
-                    <li><a href="http://www.google.com">SEARCH<span class="glyphicon glyphicon-search"></span></a><!--search glyph--></li>
-                </ul>
-                <ul class="hide-when-large">
-                    <li><a href="#">ABOUT</a></li>
-                    <li><a href="http://www.google.com">SEARCH<span class="glyphicon glyphicon-search"></span></a><!--search glyph--></li>
-                </ul>
-                <div id="blog" class="pull-left hide-when-small">
-                    <!--left side blog link-->
-                    <!--wave logo-->
-                    <a href="http://mknull.wordpress.com"><img src="~/Content/assets/wave-icon.png" />SURF & PADDLE CO. BLOG<!--Surf & Paddle Co. Blog--></a>
-                </div>
-                <div id="blog" class="hide-when-large">
-                    <a href="http://mknull.wordpress.com"><img src="~/Content/assets/wave-icon.png" /></a>
-                </div>
-            </nav><!-- end top navbar section-->
-            <div id="headline">
-                <h1>SURF & PADDLE CO.</h1>
-                <p id="subheadline">An Ironyard Project Est. Fall 2013</p>
-            </div>
-        </div>
-    </div><!--end top banner section-->
+<h2>Index</h2>
 
-    <div id="main-text">
-        <!--main text section-->
-        <article class="col-sm-12 col-md-6 col-lg-8">
-            <h1>A FANTASTIC ENGAGING HEADLINE GOES HERE</h1>
-            <!--main article byline-->
-            <div id="byline">
-                <img src="~/Content/assets/mike.jpg" /> <span id="name"> Anne Marie </span>on<span id="date"> Monday, Oct 7th 9:22pm </span>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">Donec sollicitudin at lectus</a> a hendrerit. Etiam finibus felis ut sodales rhoncus. Duis rhoncus imperdiet lacus, vel sagittis lectus scelerisque eu. Quisque vitae nisl tellus. Maecenas ornare a libero a aliquet. Pellentesque euismod massa ac egestas molestie. Etiam pharetra dolor id mauris malesuada, eleifend condimentum justo feugiat. Nullam porttitor ut lacus et ornare.</p>
-            <p>Nulla ultricies non arcu non ultricies. Nulla lacinia porttitor nibh ut feugiat. Mauris congue dui nec elementum aliquam. Donec posuere finibus imperdiet. Duis convallis ante leo, id laoreet ipsum sagittis vel. Sed rhoncus dui sed lacus mattis, venenatis consequat ante maximus. Vivamus hendrerit ornare euismod. Aliquam sodales lectus libero, a bibendum lacus venenatis ut. Sed quis mi imperdiet, porttitor massa at, vestibulum tellus. Curabitur tortor urna, tempus vitae tincidunt nec, facilisis tincidunt sem. Cras dignissim sed tortor et aliquet. Morbi mollis odio nec congue molestie. Donec accumsan fermentum mi, eu eleifend sapien iaculis non. Quisque placerat nibh vitae dui varius, non vulputate tortor consequat. Aliquam vehicula est at felis aliquam, mollis fermentum felis tristique.</p>
-            <p>Praesent rutrum felis ut nisi molestie, non rhoncus purus interdum. Vestibulum tempus a ligula eu laoreet. Suspendisse quis tortor quis ante bibendum interdum ut et nulla. Morbi velit nulla, efficitur ac bibendum at, viverra et tortor. Maecenas convallis, mauris quis laoreet gravida, massa lectus lobortis sem, eget finibus eros leo non libero. Ut imperdiet risus sapien, sed hendrerit lacus lacinia id. Vestibulum sit amet pretium quam. Phasellus eu consectetur velit.</p>
-            <div id="inline-quote">
-                <h2>WHOA, THAT'S RADICAL!</h2>
-            </div><!--main article inline quote-->
-            <p>Aenean eu scelerisque tortor. Donec eu ante est. Praesent libero velit, imperdiet eu mauris eget, iaculis laoreet tortor. Praesent risus orci, auctor nec mattis et, fringilla ac sapien. Mauris nisi ipsum, eleifend sed pulvinar id, venenatis a ligula. Vestibulum laoreet mollis magna vel sagittis. Aliquam consectetur tortor et porta pharetra. Duis vel feugiat nulla. Donec porta mi et dapibus pulvinar. Fusce accumsan turpis leo, eu rhoncus nulla volutpat nec. Etiam turpis nisi, efficitur at consequat nec, lacinia sed nisi. Praesent aliquet suscipit dictum.</p>
-            <p>Morbi posuere metus sit amet dapibus rhoncus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris vitae quam at turpis scelerisque pretium. Aliquam sit amet consectetur odio. Quisque at metus porta, imperdiet ex ultricies, luctus nisi. Etiam scelerisque ligula a venenatis blandit. Nulla scelerisque elit sed est vehicula, eu pellentesque nibh pulvinar. Sed egestas arcu laoreet, aliquet arcu fringilla, egestas urna. In vestibulum est quis viverra aliquet. Nulla sit amet commodo felis. Suspendisse at venenatis dolor, ut molestie neque. Praesent congue fringilla nisl, ac dapibus justo tincidunt eu. Donec condimentum fringilla mi, pharetra vestibulum odio pulvinar ac. Vestibulum dictum auctor velit, vel malesuada dolor sagittis sit amet. Morbi sed urna a nulla sagittis vulputate.</p>
-            <p>Duis nec dolor vitae odio elementum mattis. <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">In ipsum felis</a>, dignissim euismod cursus et, vulputate non ipsum. In quis imperdiet nibh. Pellentesque ornare auctor dui non suscipit. Nam vel pharetra velit. Vivamus mattis ipsum a aliquet aliquet. Pellentesque tincidunt tristique dignissim. Donec dui ligula, accumsan vitae magna sit amet, elementum maximus lorem. Nulla ultricies arcu nec odio mattis euismod. Donec ac convallis nibh, in ultrices mauris. Nulla vel libero eu ante laoreet ullamcorper. Aenean auctor tincidunt neque a bibendum. Cras pretium nunc dictum nibh aliquam, id sollicitudin ante venenatis. Integer fringilla ex nec ipsum dignissim, a varius est eleifend. Cras fringilla neque in felis finibus, non pellentesque arcu commodo. Vivamus volutpat vestibulum dolor, sodales blandit nunc molestie ac.</p>
-            <!--main article social media links-->
-            <div class="hide-when-small">
-                <button type="button" class="btn btn-primary btn-lg">
-                    <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Read Comments
-                </button>
-                <button type="button" class="btn btn-primary btn-lg">
-                    <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Read Later
-                </button>
-                <button type="button" class="btn btn-primary btn-lg">
-                    <span class="glyphicon glyphicon-share" aria-hidden="true"></span> Share This Post
-                </button>
-            </div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorPicture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Headline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAdvertisement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th></th>
+    </tr>
 
-            <div class="hide-when-large">
-                <button type="button" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
-                </button>
-            </div>
-        </article><!--end main article-->
-        <div id="sidebar" class="col-sm-12 col-md-6 col-lg-4">
-            <div id="author-info">
-                <img src="~/Content/assets/mike.jpg" />
-                <p>ANNE MARIE</p>
-                <ul>
-                    <li><a href="http://www.twitter.com">Twitter</a></li>
-                    <li><a href="http://www.facebook.com">Facebook</a></li>
-                    <li><a href="http://www.instagram.com">Instagram</a></li>
-                </ul>
-            </div>
-            <article>
-                <!--sidebar article-->
-                <!--sidebar article author picture-->
-                <!--sidebar article author social media menu-->
-                <!--sidebar article ad picture-->
-                <figure>
-                    <img src="~/Content/assets/paddleboarder.jpg" />
-                    <figcaption class="pull-right"><a href="http://www.google.com">ABOUT THIS AD</a></figcaption>
-                </figure>
-                <!--sidebar article ad picture caption link-->
-                <!--sidebar article headline-->
-                <h4>SIDEBAR SECTION HEADING</h4>
-                <!--sidebar article text-->
-                <p>Sed bibendum libero quis ipsum placerat feugiat. Etiam facilisis, velit ac lobortis lobortis, diam nulla lobortis purus, a <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">molestie felis</a> eros eget lectus. Quisque accumsan quis tortor posuere volutpat. Integer elementum, nisl nec lobortis venenatis, purus magna vulputate nisi, eu accumsan ante odio quis turpis. Curabitur ut pellentesque mi. Nam sollicitudin diam faucibus massa ultrices condimentum. Suspendisse bibendum mauris et urna egestas iaculis. Etiam vestibulum cursus pulvinar. Nulla vel felis ac dui consequat varius.</p>
-            </article><!--end sidebar article-->
-        </div>
-    </div><!--end main text section-->
-    <div id="separator">
-    </div>
-    <!--image of horizontal bar to separate sections-->
-    <div id="popular-posts">
-        <!--popular posts sections-->
-        <h2>MOST POPULAR POSTS</h2><!--popular posts headline-->
-        <a href="https://www.google.com/webhp?gws_rd=ssl#q=surfboard dude">
-            <div id="post1" class="col-sm-12 col-md-6 col-lg-3">
-                <!--popular post 1 section-->
-                <!--popular post 1 image-->
-                <!--popular post 1 text-->
-                <!--popular post 1 link-->
-                <div class="overlay">
-                    ANOTHER COOL POST
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorPicture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Headline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Picture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAdvertisement)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        
+        
+        
+        
+                                                                    
+    </tr>
+}
 
-                </div>
-
-            </div>
-        </a><!--end popular post 1 section-->
-        <a href="https://www.google.com/webhp?gws_rd=ssl#q=beer">
-            <div id="post2" class="col-sm-12 col-md-6 col-lg-3">
-                <!--popular post 2 section-->
-                <!--popular post 2 image-->
-                <!--popular post 2 link-->
-                <div class="overlay">
-                    POST TITLE
-                </div>
-            </div>
-        </a><!--end popular post 2 section-->
-        <a href="https://www.google.com/webhp?gws_rd=ssl#q=zach_galifanakis">
-            <div id="post3" class="col-sm-12 col-md-6 col-lg-3">
-                <!--popular post 3 section-->
-                <!--popular post 3 image-->
-                <!--popular post 3 link-->
-                <div class="overlay">
-                    HERE'S ANOTHER LONGER POST TITLE
-
-                </div>
-            </div>
-        </a>
-        <!--end popular post 3 section-->
-        <a href="https://www.google.com/webhp?gws_rd=ssl#q=custom_made_tequila_bottles">
-            <div id="post4" class="col-sm-12 col-md-6 col-lg-3">
-                <!--popular post 4 section-->
-                <!--popular post 4 image-->
-                <div class="overlay">
-                    <p style="position: absolute; bottom: 0;">OH COOL, A POST!</p>
-                </div>
-            </div>  <!--popular post 4 link-->
-        </a>
-        <!--end popular post 4 section-->
-    </div><!--end popular posts section-->
-    <div id="bottom-navbar">
-        <!--bottom navbar section-->
-        <div id="bottom-right-nav" class="pull-right">
-            <!--bottom right nav menu-->
-            <!--bottom right nav menu links-->
-            <ul>
-                <li>Nav Item 1</li>
-                <li>Nav Item 2</li>
-                <li>Nav Item 3</li>
-                <li>Nav Item 4</li>
-            </ul>
-        </div><!-- end bottom right nav menu-->
-        <div id="bottom-left-nav">
-            <!--bottom left nav menu-->
-            <!--TIY logo-->
-            <p id="copyright"><span><img src="~/Content/assets/iron-yard-logo.svg" /></span>The Ironyard Copyright 2013. All Rights Reserved.</p><!--copyright-->
-        </div><!--end bottom left nav menu-->
-    </div><!--end bottom navbar section-->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-</body>
-</html>
-
+</table>

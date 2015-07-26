@@ -138,7 +138,9 @@ li{
      background-color:black;
      color: white;
      margin: 0em 2em 0em 2em;
- 
+ }
+ #bottom-navbar a{
+     color: white;
  }
  #copyright img{
      height: 4em;
@@ -193,7 +195,7 @@ li{
         font-size: 6em;
     }
     #top-banner{
-        height: 40em;
+        height: 30em;
     }
     #headline{
   padding: 18em 0em 18em 0em;

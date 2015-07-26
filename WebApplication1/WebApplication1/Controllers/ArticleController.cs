@@ -121,9 +121,11 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Main()
         {
-            List<Article> ArticleList = new List<Article>();
             if (HttpContext.Application["ArticleList"] == null)
             {
+                List<Article> ArticleList = new List<Article>();
+                HttpContext.Application["ArticleList"] = ArticleList;
+            }
 
                 Article art1 = new Article();
                 Article art2 = new Article();
@@ -146,6 +148,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art1.AuthorPicture = "~/Content/assets/mike.jpg";
                 art1.Date = DateTime.Today;
                 art1.isAdvertisement = false;
+                art1.Id = 1;
 
                 art2.Author = "Tom Slick";
                 art2.Headline = "Another Cool Post!";
@@ -162,6 +165,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art2.AuthorPicture = "~/Content/assets/mike.jpg";
                 art2.Date = DateTime.Today;
                 art2.isAdvertisement = false;
+                art2.Id = 2;
 
                 art3.Author = "Janet Reno";
                 art3.Headline = "Post Title";
@@ -178,6 +182,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art3.AuthorPicture = "~/Content/assets/mike.jpg";
                 art3.Date = DateTime.Today;
                 art3.isAdvertisement = false;
+                art3.Id = 3;
 
                 art4.Author = "Janet Reno";
                 art4.Headline = "Post Title";
@@ -194,6 +199,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art4.AuthorPicture = "~/Content/assets/mike.jpg";
                 art4.Date = DateTime.Today;
                 art4.isAdvertisement = false;
+                art4.Id = 4;
 
                 art5.Author = "Janet Reno";
                 art5.Headline = "Post Title";
@@ -210,6 +216,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art5.AuthorPicture = "~/Content/assets/mike.jpg";
                 art5.Date = DateTime.Today;
                 art5.isAdvertisement = false;
+                art5.Id = 5;
 
                 ad1.Author = "Janet Reno";
                 ad1.Headline = "Post Title";
@@ -226,32 +233,27 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 ad1.AuthorPicture = "~/Content/assets/mike.jpg";
                 ad1.Date = DateTime.Today;
                 ad1.isAdvertisement = true;
+                ad1.Id = 6;
 
 
+                
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(art1);
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(art2);
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(art3);
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(art4);
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(art5);
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(ad1);
 
-                ArticleList.Add(art1);
-                ArticleList.Add(art2);
-                ArticleList.Add(art3);
-                ArticleList.Add(art4);
-                ArticleList.Add(art5);
-                ArticleList.Add(ad1);
-            }
-            else
-            {
-                foreach(Article a in (List<Article>)HttpContext.Application["ArticleList"])
-                {
-                    ArticleList.Add(a);
-                }
-            }
-            List<Article> DisplayList = new List<Article>();
-            ArticleList.OrderBy(x => x.Date);
+            List<Article>DisplayList = new List<Article>();
+            List<Article> TempList = (List<Article>)HttpContext.Application["ArticleList"];
+            TempList.OrderBy(x => x.Date);
             for (int i = 0; i < 4; i++)
             {
-                Article nextArticle = ArticleList.FindLast(x => x.isAdvertisement = false);
+                Article nextArticle = TempList.Where(x=>x.isAdvertisement == false).Last();
                 DisplayList.Add(nextArticle);
-                ArticleList.Remove(nextArticle);
+                TempList.Remove(nextArticle);
             }
-            Article nextAdvert = ArticleList.FindLast(x => x.isAdvertisement = true);
+            Article nextAdvert = TempList.Where(x=>x.isAdvertisement == true).Last();
             DisplayList.Add(nextAdvert);
             return View(DisplayList);
         }
