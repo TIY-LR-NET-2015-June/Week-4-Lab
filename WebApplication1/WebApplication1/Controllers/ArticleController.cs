@@ -116,7 +116,7 @@ namespace WebApplication1.Controllers
             {
                 List<Article> ArticleList = new List<Article>();
                 HttpContext.Application["ArticleList"] = ArticleList;
-            }
+
 
                 Article art1 = new Article();
                 Article art2 = new Article();
@@ -227,13 +227,14 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 ad1.Id = Guid.NewGuid();
 
 
-                
+
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art1);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art2);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art3);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art4);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art5);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(ad1);
+            }
 
                 ((List<Article>)HttpContext.Application["ArticleList"]).OrderBy(x => x.Date);
             ((List<Article>)HttpContext.Application["ArticleList"]).Reverse();
