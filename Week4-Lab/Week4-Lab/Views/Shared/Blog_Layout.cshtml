@@ -107,14 +107,11 @@
     <footer>
         
     </footer>
-        <!-- jQuery -->
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="~/Scripts/bootstrap.min.js"></script>
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
         <!-- Custom Theme JavaScript -->
-        <script src="~/Scripts/clean-blog.min.js"></script>
+        @*<script src="~/Scripts/clean-blog.min.js"></script>*@
 
 </body>
 

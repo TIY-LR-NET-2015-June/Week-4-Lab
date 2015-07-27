@@ -182,8 +182,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\Blog_Layout.cshtml" />
     <Content Include="Views\Home\BlogPost.cshtml" />
-    <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Shared\EditorTemplate\DateTime.cshtml" />
+    <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Post\ViewPost.cshtml" />
+    <Content Include="Views\Post\ViewNewPost.cshtml" />
+    <Content Include="Views\Post\Create2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
