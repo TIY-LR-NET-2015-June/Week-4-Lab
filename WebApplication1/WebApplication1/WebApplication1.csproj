@@ -168,7 +168,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Article\Index.cshtml" />
     <Content Include="Views\Shared\Blog_Layout.cshtml" />
-    <Content Include="Views\Article\View.cshtml" />
     <Content Include="Views\Article\Create.cshtml" />
     <Content Include="Views\Article\Edit.cshtml" />
     <Content Include="Views\Article\Delete.cshtml" />
