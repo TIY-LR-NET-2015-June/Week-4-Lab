@@ -1,0 +1,22 @@
+﻿@model SurfandPaddle.Models.Posts
+
+<div>
+    <h4>Posts</h4>
+    <hr />
+        <h2>
+            @Html.DisplayFor(model => model.Title)
+        </h2>
+    <h3>
+        Model ID is: @Html.DisplayFor(model => model.ID)
+    </h3>
+
+        <img src="@Html.DisplayFor(model => model.Image)" />
+
+        <p>
+            @Html.DisplayFor(model => model.Text)
+        </p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
