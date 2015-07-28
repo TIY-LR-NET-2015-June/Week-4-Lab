@@ -12,13 +12,13 @@ namespace Week4.Controllers
 {
     public class SiteUserController : Controller
     {
-        // Index - list of site users
+       
+      
         public ActionResult Index()
         {
             return View(HttpContext.Application["SiteUsers"]);
         }
 
-        // Login - present login screen (GET)
         public ActionResult Login()
         {
             return View();
@@ -31,8 +31,8 @@ namespace Week4.Controllers
             List<SiteUser> usrs = (List<SiteUser>)HttpContext.Application["SiteUsers"];
             var usr = usrs.First(x => x.UserId == userId);
             if (usr.Password == "password") Session["CurrentUser"] = usr;
-                else return View("Denied");
-            return RedirectToAction("Index","Post");
+            else return View("Denied");
+            return RedirectToAction("Index", "Post");
         }
 
         // GET: DENIED

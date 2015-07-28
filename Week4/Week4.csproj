@@ -118,7 +118,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\SiteUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,6 +171,7 @@
     <Content Include="Views\SiteUser\Login.cshtml" />
     <Content Include="Views\SiteUser\Denied.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

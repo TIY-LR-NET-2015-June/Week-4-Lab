@@ -4,33 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Week4.Models;
-
+using static Week4.MvcApplication;
 namespace Week4.Controllers
 {
     public class PostController : Controller
     {
-        // GET: Post
         public ActionResult Index()
         {
-            return View(HttpContext.Application["Posts"]);
+            return View(Posts);
         }
 
-        // GET: Post/Details/5
         public ActionResult Details(Guid id)
         {
-            var posts = (List<Post>)HttpContext.Application["Posts"];
-            var post = posts.First(x => x.Id == id);
-            return View(post);
+            return View(Posts.First(x => x.Id == id));
         }
 
-        // GET: Post/Create
         public ActionResult Create()
         {
             if (Session["CurrentUser"] == null)
             {
                 return RedirectToRoute("Login");
             }
-
             return View();
         }
 
@@ -40,32 +34,30 @@ namespace Week4.Controllers
         {
             try
             {
-                if (Session["CurrentUser"] == null)
-                {
-                    return RedirectToRoute("Login");
-                }
-
                 p.Author = (SiteUser)Session["CurrentUser"];
                 p.DateTimeSubmitted = DateTime.Now;
-                var posts = (List<Post>) HttpContext.Application["Posts"];
-                posts.Add(p);
+                Posts.Add(p);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult(401);
             }
         }
 
         // GET: Post/Edit/5
         public ActionResult Edit(Guid id)
         {
-            return View();
+            if (Posts.First(x => x.Id == id).Author == (SiteUser)Session["CurrentUser"])
+            {
+                return View(Posts.First(x => x.Id == id));
+            }
+            return RedirectToAction("Denied", "SiteUser");
         }
 
         // POST: Post/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Post post)
         {
             try
             {

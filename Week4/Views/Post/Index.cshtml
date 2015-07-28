@@ -18,59 +18,40 @@
 </p>
 <table class="table row">
     <tr>
-        <th class="col-md-3">
-            @*@Html.DisplayNameFor(model => model.Description)*@
-        </th>
-        <th class="col-md-2">
-            @*@Html.DisplayNameFor(model => model.DateTimeSubmitted)*@
-        </th>
-     
-        <th class="col-md-2">
-            @*@Html.DisplayNameFor(model => model.Author...)*@
-        </th>
-        <th class="col-md-6">
-            @*@Html.DisplayNameFor(model => model.Text)*@
-        </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(model => model.Likes)
-        </th>
-        <th></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-lg-4"></th>
+        <th class="co-md-1">Likes</th>
+        <th class="col-sm-1"></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>@Html.DisplayFor(modelItem => item.Author.FullName)</td>
+            <td>@Html.DisplayFor(modelItem => item.TimeStamp)</td>
+            <td>@Html.DisplayFor(modelItem => item.PreviewText)</td>
+            <td>@Html.DisplayFor(modelItem => item.Likes)</td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PreviewText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Likes)
-            </td>
-            <td>
+                @{
+
+                }
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id })<br />
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) <br />
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }) <br />
             </td>
         </tr>
-    }
-   </table>
-@{
-    StringBuilder sb = new StringBuilder();
-    foreach (Post p in Post.GetRandomPosts())
+                    }
+</table>
+@* Show the row of post image links at the bottom*@
+<table class="row" style="backface-visibility: visible">
+    @foreach (Post p in Post.GetRandomPosts())
     {
-        //string imgFilename = "/images/" + p.Author.ImgFilename;
-        sb.AppendFormat("<a href=\"/post/details/" + p.Id + "\"> <img src={0} height=\"20%\" width=\"20%\" </a>", p.Author.ImgFilename);
-
+        @Html.Raw("<a href=\"/post/details/" + p.Id + "\"> <img src=" + p.Author.ImgFilename + " height=\"24%\" width=\"24%\" </a>");
     }
-}
-<img src="" />
-@Html.Raw(sb.ToString());
+</table>
+
+
+
