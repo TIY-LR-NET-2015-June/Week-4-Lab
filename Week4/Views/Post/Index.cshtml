@@ -1,0 +1,50 @@
+﻿@using Week4.Models
+@model IEnumerable<Post>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    Total posts: @Post.PostCount
+</p>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table row">
+    <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-lg-4"></th>
+        <th class="co-md-1">Likes</th>
+        <th class="col-sm-1"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>@Html.DisplayFor(modelItem => item.Author.FullName)</td>
+            <td>@Html.DisplayFor(modelItem => item.TimeStamp)</td>
+            <td>@Html.DisplayFor(modelItem => item.PreviewText)</td>
+            <td>@Html.DisplayFor(modelItem => item.Likes)</td>
+            <td>
+                @{
+                }
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id})<br/>
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) <br/>
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id}) <br/>
+            </td>
+        </tr>
+    }
+</table>
+@* Show the row of post image links at the bottom*@
+<table class="row" style="backface-visibility: visible">
+    @foreach (var p in Post.GetRandomPosts())
+    {
+        @Html.Raw("<a href=\"/post/details/" + p.Id + "\"> <img src=" + p.Author.ImgFilename + " height=\"24%\" width=\"24%\" </a>")
+        ;
+    }
+</table>

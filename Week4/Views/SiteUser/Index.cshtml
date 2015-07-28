@@ -1,0 +1,34 @@
+﻿@using System.Web.UI.HtmlControls
+@model IEnumerable<Week4.Models.SiteUser>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@item.ImgFilename" width="50" height="50" />
+            </td>
+            <td style="align-content: center">
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+           
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
