@@ -14,6 +14,12 @@ namespace SurfandPaddle
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "VanityRoute",
+                url: "Posts/{id}",
+                defaults: new { controller = "Home", action = "ViewPosts", id = 0 }
+                );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
