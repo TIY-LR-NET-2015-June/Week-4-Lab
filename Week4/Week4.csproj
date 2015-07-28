@@ -41,6 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -169,6 +170,8 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\SiteUser\Index.cshtml" />
     <Content Include="Views\SiteUser\Login.cshtml" />
+    <Content Include="Views\SiteUser\Denied.cshtml" />
+    <Content Include="Views\Post\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

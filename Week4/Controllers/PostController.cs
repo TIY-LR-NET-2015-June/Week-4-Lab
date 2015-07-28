@@ -18,14 +18,19 @@ namespace Week4.Controllers
         // GET: Post/Details/5
         public ActionResult Details(Guid id)
         {
-            var posts = (List<Post>) HttpContext.Application["Posts"];
-            var post = posts.First(x=>x.Id==id);
+            var posts = (List<Post>)HttpContext.Application["Posts"];
+            var post = posts.First(x => x.Id == id);
             return View(post);
         }
 
         // GET: Post/Create
         public ActionResult Create()
         {
+            if (Session["CurrentUser"] == null)
+            {
+                return RedirectToRoute("Login");
+            }
+
             return View();
         }
 
@@ -39,9 +44,11 @@ namespace Week4.Controllers
                 {
                     return RedirectToRoute("Login");
                 }
+
                 p.Author = (SiteUser)Session["CurrentUser"];
                 p.DateTimeSubmitted = DateTime.Now;
-                
+                var posts = (List<Post>) HttpContext.Application["Posts"];
+                posts.Add(p);
                 return RedirectToAction("Index");
             }
             catch
@@ -72,19 +79,29 @@ namespace Week4.Controllers
             }
         }
 
+
         // GET: Post/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete(Guid id)
         {
-            return View();
+            List<Post> p = (List<Post>)HttpContext.Application["Posts"];
+            Post thisPost = p.First(x => x.Id == id);
+            SiteUser author = thisPost.Author;
+            if (author != HttpContext.Session["CurrentUser"])
+            {
+                return RedirectToAction("Denied", "SiteUser");
+            }
+            return View(thisPost);
         }
 
         // POST: Post/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Post post)
         {
             try
             {
-                // TODO: Add delete logic here
+                List<Post> posts = (List<Post>)HttpContext.Application["Posts"];
+                posts.Remove(post);
 
                 return RedirectToAction("Index");
             }

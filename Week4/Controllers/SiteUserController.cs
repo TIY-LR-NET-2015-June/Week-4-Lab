@@ -1,32 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Microsoft.VisualBasic.ApplicationServices;
 using Week4.Models;
 
 namespace Week4.Controllers
 {
     public class SiteUserController : Controller
     {
-        // GET: SiteUser
+        // Index - list of site users
         public ActionResult Index()
         {
             return View(HttpContext.Application["SiteUsers"]);
         }
 
+        // Login - present login screen (GET)
         public ActionResult Login()
         {
             return View();
         }
 
+        //Login - Post Login attempt info (POST)
         [HttpPost]
-        public ActionResult Login(string userId, string password = "password")
+        public ActionResult Login(string userId, string redirectUrl, string password = "password")
         {
-            return View();
+            List<SiteUser> usrs = (List<SiteUser>)HttpContext.Application["SiteUsers"];
+            var usr = usrs.First(x => x.UserId == userId);
+            if (usr.Password == "password") Session["CurrentUser"] = usr;
+                else return View("Denied");
+            return RedirectToAction("Index","Post");
         }
 
+        // GET: DENIED
+        [HttpGet]
+        public ActionResult Denied()
+        {
+            return View("Denied");
+        }
         // GET: SiteUser/Register
         public ActionResult Register()
         {

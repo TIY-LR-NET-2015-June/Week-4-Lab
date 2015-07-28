@@ -46,5 +46,8 @@ namespace Week4
                 HttpContext.Current.Application["Ads"] = Ad.GenerateAds(8);
             }
         }
+
+        
     }
+
 }

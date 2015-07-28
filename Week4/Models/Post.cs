@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Web;
 using Week4;
@@ -30,7 +31,13 @@ namespace Week4.Models
 
         public string PreviewText
         {
-            get { return this.Text.Substring(0, 255); }
+
+            get
+            {
+                if (this.Text.Length < 128) return Text;
+                return Text.Substring(0, 128);
+
+            }
         }
         public string TimeStamp
         {
@@ -67,12 +74,13 @@ namespace Week4.Models
                 var author = users.OrderBy(x => Guid.NewGuid()).First();
                 var description = GetRandomLipsum((List<string>)HttpContext.Current.Application["Titles"]);
                 var text = GetRandomLipsum((List<string>)HttpContext.Current.Application["Lipsums"]);
+                
                 result.Add(author.TryMakePost(description, text));
             }
             return result;
         }
 
-       public static List<Post> GetRandomPosts(int count = 4)
+        public static List<Post> GetRandomPosts(int count = 4)
         {
             var posts = new List<Post>();
             for (int i = 0; i < count; i++)

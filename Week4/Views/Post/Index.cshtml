@@ -1,5 +1,7 @@
 ﻿@using System.Collections.Specialized
 @using System.Text
+@using System.Web.Razor.Generator
+@using System.Web.UI.HtmlControls
 @using Week4.Models
 @model IEnumerable<Week4.Models.Post>
 
@@ -22,6 +24,7 @@
         <th class="col-md-2">
             @*@Html.DisplayNameFor(model => model.DateTimeSubmitted)*@
         </th>
+     
         <th class="col-md-2">
             @*@Html.DisplayNameFor(model => model.Author...)*@
         </th>
@@ -64,7 +67,10 @@
     StringBuilder sb = new StringBuilder();
     foreach (Post p in Post.GetRandomPosts())
     {
-        sb.Append("<img src=\"" + p.Author.ImgFilename + "\" height=\"100\" width=\"100\">");
+        //string imgFilename = "/images/" + p.Author.ImgFilename;
+        sb.AppendFormat("<a href=\"/post/details/" + p.Id + "\"> <img src={0} height=\"20%\" width=\"20%\" </a>", p.Author.ImgFilename);
+
     }
 }
-@Html.Raw(sb.ToString())
+<img src="" />
+@Html.Raw(sb.ToString());
