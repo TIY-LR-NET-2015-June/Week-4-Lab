@@ -1,9 +1,5 @@
-﻿@using System.Collections.Specialized
-@using System.Text
-@using System.Web.Razor.Generator
-@using System.Web.UI.HtmlControls
-@using Week4.Models
-@model IEnumerable<Week4.Models.Post>
+﻿@using Week4.Models
+@model IEnumerable<Post>
 
 @{
     ViewBag.Title = "Index";
@@ -36,22 +32,19 @@
             <td>@Html.DisplayFor(modelItem => item.Likes)</td>
             <td>
                 @{
-
                 }
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })<br />
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) <br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) <br />
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id})<br/>
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) <br/>
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id}) <br/>
             </td>
         </tr>
-                    }
+    }
 </table>
 @* Show the row of post image links at the bottom*@
 <table class="row" style="backface-visibility: visible">
-    @foreach (Post p in Post.GetRandomPosts())
+    @foreach (var p in Post.GetRandomPosts())
     {
-        @Html.Raw("<a href=\"/post/details/" + p.Id + "\"> <img src=" + p.Author.ImgFilename + " height=\"24%\" width=\"24%\" </a>");
+        @Html.Raw("<a href=\"/post/details/" + p.Id + "\"> <img src=" + p.Author.ImgFilename + " height=\"24%\" width=\"24%\" </a>")
+        ;
     }
 </table>
-
-
-

@@ -170,12 +170,11 @@
     <Content Include="Views\SiteUser\Index.cshtml" />
     <Content Include="Views\SiteUser\Login.cshtml" />
     <Content Include="Views\SiteUser\Denied.cshtml" />
-    <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Post\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

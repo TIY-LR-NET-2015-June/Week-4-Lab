@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using Microsoft.VisualBasic.ApplicationServices;
 using Week4.Models;
 
 namespace Week4.Controllers
 {
     public class SiteUserController : Controller
     {
-       
-      
         public ActionResult Index()
         {
             return View(HttpContext.Application["SiteUsers"]);
@@ -28,7 +21,7 @@ namespace Week4.Controllers
         [HttpPost]
         public ActionResult Login(string userId, string redirectUrl, string password = "password")
         {
-            List<SiteUser> usrs = (List<SiteUser>)HttpContext.Application["SiteUsers"];
+            var usrs = (List<SiteUser>) HttpContext.Application["SiteUsers"];
             var usr = usrs.First(x => x.UserId == userId);
             if (usr.Password == "password") Session["CurrentUser"] = usr;
             else return View("Denied");
@@ -41,6 +34,7 @@ namespace Week4.Controllers
         {
             return View("Denied");
         }
+
         // GET: SiteUser/Register
         public ActionResult Register()
         {
@@ -63,12 +57,12 @@ namespace Week4.Controllers
             }
         }
 
-
         // GET: SiteUser/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
+
         // GET: SiteUser/Edit/5
         public ActionResult Edit(int id)
         {

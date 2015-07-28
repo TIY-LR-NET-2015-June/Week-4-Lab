@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
@@ -10,51 +10,55 @@
 
 </head>
 <body style="background-color: #07101a">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Surf and Paddle", "Index", "Post", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("View All Posts", "Index", "Post")</li>
-                    @{
-                        string linkText = string.Empty;
-                        var usr = (SiteUser)Session["CurrentUser"];
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Surf and Paddle", "Index", "Post", new {area = ""}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("View All Posts", "Index", "Post")</li>
+                @{
+                    var linkText = string.Empty;
+                    var usr = (SiteUser) Session["CurrentUser"];
 
-                        if (Session["CurrentUser"] == null)
-                        { linkText = "Login"; }
-                        else
-                        { linkText = usr.FullName; }
+                    if (Session["CurrentUser"] == null)
+                    {
+                        linkText = "Login";
                     }
-                    <li>@Html.ActionLink(linkText, "Login", "SiteUser")</li>
+                    else
+                    {
+                        linkText = usr.FullName;
                     }
+                }
+                <li>@Html.ActionLink(linkText, "Login", "SiteUser")</li>
+                }
 
-                    @* <li>@Html.ActionLink("View All Users", "Index", "SiteUser")</li>*@
-                    @* <li>@Html.ActionLink("Log In", "Authorize", "Login")</li>*@
-                </ul>
-            </div>
+                @* <li>@Html.ActionLink("View All Users", "Index", "SiteUser")</li>*@
+                @* <li>@Html.ActionLink("Log In", "Authorize", "Login")</li>*@
+            </ul>
         </div>
     </div>
-    <div class="jumbotron" style="color: wheat; background-image: url(/images/water.png); background-position: center; background-color: #07101a; background-repeat: no-repeat">
-        <h1 style="text-align: center">Surf & Paddle</h1>
-    </div>
-    <div class="container body-content" style="background-color: wheat; border: ridge; border-width: 20px">
-        @RenderBody()
-        <hr />
-        @*@RenderSection("BottomPosts")*@
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Brandon Goza</p>
-        </footer>
-    </div>
+</div>
+<div class="jumbotron" style="background-color: #07101a; background-image: url(/images/water.png); background-position: center; background-repeat: no-repeat; color: wheat;">
+    <h1 style="text-align: center">Surf & Paddle</h1>
+</div>
+<div class="container body-content" style="background-color: wheat; border: ridge; border-width: 20px">
+    @RenderBody()
+    <hr/>
+    @*@RenderSection("BottomPosts")*@
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Brandon Goza</p>
+    </footer>
+</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", false)
 </body>
 </html>

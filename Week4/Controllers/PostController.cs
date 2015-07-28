@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using Week4.Models;
 using static Week4.MvcApplication;
+
 namespace Week4.Controllers
 {
     public class PostController : Controller
@@ -35,7 +36,8 @@ namespace Week4.Controllers
             try
             {
                 p.Author = (SiteUser)Session["CurrentUser"];
-                p.DateTimeSubmitted = DateTime.Now;
+                p.Author.TryMakePost(p.Description, p.Text);
+
                 Posts.Add(p);
                 return RedirectToAction("Index");
             }
@@ -71,14 +73,12 @@ namespace Week4.Controllers
             }
         }
 
-
         // GET: Post/Delete/5
         [HttpGet]
         public ActionResult Delete(Guid id)
         {
-            List<Post> p = (List<Post>)HttpContext.Application["Posts"];
-            Post thisPost = p.First(x => x.Id == id);
-            SiteUser author = thisPost.Author;
+            var thisPost = Posts.First(x => x.Id == id);
+            var author = thisPost.Author;
             if (author != HttpContext.Session["CurrentUser"])
             {
                 return RedirectToAction("Denied", "SiteUser");
@@ -88,13 +88,13 @@ namespace Week4.Controllers
 
         // POST: Post/Delete/5
         [HttpPost]
-        public ActionResult Delete(Post post)
+        public ActionResult Delete(Guid id, FormCollection formDataCollection)
         {
             try
             {
-                List<Post> posts = (List<Post>)HttpContext.Application["Posts"];
-                posts.Remove(post);
-
+                var thisPost = Posts.First(x => x.Id == id);
+                Posts.Remove(thisPost);
+                HttpContext.Application["Posts"] = Posts;
                 return RedirectToAction("Index");
             }
             catch

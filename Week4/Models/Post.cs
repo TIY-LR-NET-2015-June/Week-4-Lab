@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Text;
 using System.Web;
-using Week4;
-
 
 namespace Week4.Models
 {
@@ -16,7 +14,7 @@ namespace Week4.Models
             get
             {
                 if (HttpContext.Current.Application["Posts"] == null) return 0;
-                var x = (List<Post>)HttpContext.Current.Application["Posts"];
+                var x = (List<Post>) HttpContext.Current.Application["Posts"];
                 return x.Count;
             }
         }
@@ -31,50 +29,49 @@ namespace Week4.Models
 
         public string PreviewText
         {
-
             get
             {
-                if (this.Text.Length < 128) return Text;
+                if (Text.Length < 128) return Text;
                 return Text.Substring(0, 128);
-
             }
         }
+
         public string TimeStamp
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine(this.DateTimeSubmitted.ToShortDateString() + "\t");
-                sb.AppendLine(this.DateTimeSubmitted.ToShortTimeString());
+                var sb = new StringBuilder();
+                sb.AppendLine(DateTimeSubmitted.ToShortDateString() + "\t");
+                sb.AppendLine(DateTimeSubmitted.ToShortTimeString());
                 return sb.ToString();
             }
         }
 
         public static List<string> GetLinesFromCsv(string filename)
         {
-            var reader = System.IO.File.OpenText(filename);
-            List<string> results = new List<string>();
+            var reader = File.OpenText(filename);
+            var results = new List<string>();
             while (!reader.EndOfStream)
                 results.Add(reader.ReadLine());
             return results;
         }
+
         public static string GetRandomLipsum(List<string> st)
         {
             return st.OrderBy(x => Guid.NewGuid()).First();
         }
 
-
         public static List<Post> GenerateRandomPosts(int count)
         {
-            List<Post> result = new List<Post>();
+            var result = new List<Post>();
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                List<SiteUser> users = (List<SiteUser>)HttpContext.Current.Application["SiteUsers"];
+                var users = (List<SiteUser>) HttpContext.Current.Application["SiteUsers"];
                 var author = users.OrderBy(x => Guid.NewGuid()).First();
-                var description = GetRandomLipsum((List<string>)HttpContext.Current.Application["Titles"]);
-                var text = GetRandomLipsum((List<string>)HttpContext.Current.Application["Lipsums"]);
-                
+                var description = GetRandomLipsum((List<string>) HttpContext.Current.Application["Titles"]);
+                var text = GetRandomLipsum((List<string>) HttpContext.Current.Application["Lipsums"]);
+
                 result.Add(author.TryMakePost(description, text));
             }
             return result;
@@ -83,7 +80,7 @@ namespace Week4.Models
         public static List<Post> GetRandomPosts(int count = 4)
         {
             var posts = new List<Post>();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 posts.Add(GetRandomPost());
             }
@@ -92,7 +89,7 @@ namespace Week4.Models
 
         public static Post GetRandomPost()
         {
-            List<Post> posts = (List<Post>)HttpContext.Current.Application["Posts"];
+            var posts = (List<Post>) HttpContext.Current.Application["Posts"];
             return posts.OrderBy(x => Guid.NewGuid()).First();
         }
     }

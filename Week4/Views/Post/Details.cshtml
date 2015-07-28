@@ -8,26 +8,25 @@
 <h3>@Model.Author.FullName</h3>
 <div>
     <h4>@Model.DateTimeSubmitted.ToString("g")</h4>
-    <hr />
+    <hr/>
 
     <dl class="row">
 
         <dd class="col-md-2">
-            <img src=@Model.Author.ImgFilename alt="" width="100" height="100" />
+            <img src="@Model.Author.ImgFilename" alt="" width="100" height="100"/>
         </dd>
         <dd class="col-lg-8">
             @Html.DisplayFor(model => model.Text)
         </dd>
 
 
-
-        <dd class ="col-sm-2">
+        <dd class="col-sm-2">
             @Html.DisplayFor(model => model.Likes) Likes.
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>
