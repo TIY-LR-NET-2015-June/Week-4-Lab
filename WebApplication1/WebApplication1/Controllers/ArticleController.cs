@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
         // GET: Article
         public ActionResult Index()
         {
-            if (HttpContext.Application["ArticleList"] == null)
+            if (((List<Article>)HttpContext.Application["ArticleList"]).Count < 5 || ((List<Article>)HttpContext.Application["AdList"]) == null)
             {
                 return RedirectToAction ("Main");
             }
@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Article/Details/5
-        public ActionResult Details(Guid id)
+        public ActionResult Details(string id)
         {
             List<Article> ArticleList = (List<Article>)HttpContext.Application["ArticleList"];
             Article a = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
@@ -43,10 +43,20 @@ namespace WebApplication1.Controllers
                 return View(a);
             }
            
-            a.Id = Guid.NewGuid();
-
-            ((List<Article>)HttpContext.Application["ArticleList"]).Add(a);
-            try
+            a.Id = a.Headline.Replace(' ','_');
+            if (((List<Article>)HttpContext.Application["ArticleList"]).Find(x=>x.Id == a.Id) != null)
+            {
+                a.Id = a.Id + DateTime.Now.Millisecond.ToString();
+            }
+            if (a.isAdvertisement)
+            {
+                ((List<Article>)HttpContext.Application["AdList"]).Add(a);
+            }
+            else
+            {
+                ((List<Article>)HttpContext.Application["ArticleList"]).Add(a);
+            }
+                try
             {
                 // TODO: Add insert logic here
 
@@ -59,7 +69,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Article/Edit/5
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(string id)
         {
             Article a = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
             return View(a);
@@ -67,7 +77,7 @@ namespace WebApplication1.Controllers
 
         // POST: Article/Edit/5
         [HttpPost]
-        public ActionResult Edit(Guid id, Article editedArticle)
+        public ActionResult Edit(string id, Article editedArticle)
         {
             
             try
@@ -87,7 +97,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Article/Delete/5
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(string id)
         {
 
             Article a = ((List<Article>)HttpContext.Application["ArticleList"]).Find(x => x.Id == id);
@@ -96,7 +106,7 @@ namespace WebApplication1.Controllers
 
         // POST: Article/Delete/5
         [HttpPost]
-        public ActionResult Delete(Guid id, Article article)
+        public ActionResult Delete(string id, Article article)
         {
             try
             {
@@ -116,6 +126,8 @@ namespace WebApplication1.Controllers
             {
                 List<Article> ArticleList = new List<Article>();
                 HttpContext.Application["ArticleList"] = ArticleList;
+                List<Article> AdList = new List<Article>();
+                HttpContext.Application["AdList"] = ArticleList;
 
 
                 Article art1 = new Article();
@@ -126,7 +138,7 @@ namespace WebApplication1.Controllers
                 Article ad1 = new Article();
                 art1.Author = "John Doe";
                 art1.Headline = "A Fantastic Engaging Headline Goes Here!";
-                art1.Picture = "~/Content/assets/wave.jpg";
+                art1.Picture = "~/Content/assets/bottles.jpg";
                 art1.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
@@ -139,7 +151,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art1.AuthorPicture = "/Content/assets/mike.jpg";
                 art1.Date = DateTime.Today;
                 art1.isAdvertisement = false;
-                art1.Id = Guid.NewGuid();
+                art1.Id = art1.Headline.Replace(' ','_');
 
                 art2.Author = "Tom Slick";
                 art2.Headline = "Another Cool Post!";
@@ -156,11 +168,11 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art2.AuthorPicture = "/Content/assets/mike.jpg";
                 art2.Date = DateTime.Today;
                 art2.isAdvertisement = false;
-                art2.Id = Guid.NewGuid();
+                art2.Id = art2.Headline.Replace(' ','_');
 
                 art3.Author = "Janet Reno";
-                art3.Headline = "Post Title";
-                art3.Picture = "/Content/assets/surfboarddude.jpg";
+                art3.Headline = "A Somewhat Longer Post Title";
+                art3.Picture = "/Content/assets/zachgalifanakis.jpg";
                 art3.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
@@ -173,10 +185,10 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art3.AuthorPicture = "/Content/assets/mike.jpg";
                 art3.Date = DateTime.Today;
                 art3.isAdvertisement = false;
-                art3.Id = Guid.NewGuid();
+                art3.Id = art3.Headline.Replace(' ','_');
 
                 art4.Author = "Janet Reno";
-                art4.Headline = "Post Title";
+                art4.Headline = "The Title is";
                 art4.Picture = "/Content/assets/surfboarddude.jpg";
                 art4.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
@@ -190,11 +202,11 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art4.AuthorPicture = "/Content/assets/mike.jpg";
                 art4.Date = DateTime.Today;
                 art4.isAdvertisement = false;
-                art4.Id = Guid.NewGuid();
+                art4.Id = art4.Headline.Replace(' ','_');
 
                 art5.Author = "Janet Reno";
-                art5.Headline = "Post Title";
-                art5.Picture = "/Content/assets/surfboarddude.jpg";
+                art5.Headline = "Once again into the breach";
+                art5.Picture = "/Content/assets/bottles.jpg";
                 art5.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
@@ -207,11 +219,11 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 art5.AuthorPicture = "/Content/assets/mike.jpg";
                 art5.Date = DateTime.Today;
                 art5.isAdvertisement = false;
-                art5.Id = Guid.NewGuid();
+                art5.Id = art5.Headline.Replace(' ','_');
 
                 ad1.Author = "Janet Reno";
-                ad1.Headline = "Post Title";
-                ad1.Picture = "/Content/assets/surfboarddude.jpg";
+                ad1.Headline = "And yet another interesting read";
+                ad1.Picture = "/Content/assets/paddleboarder.jpg";
                 ad1.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
@@ -224,7 +236,7 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 ad1.AuthorPicture = "/Content/assets/mike.jpg";
                 ad1.Date = DateTime.Today;
                 ad1.isAdvertisement = true;
-                ad1.Id = Guid.NewGuid();
+                ad1.Id = ad1.Headline.Replace(' ','_');
 
 
 
@@ -233,13 +245,13 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art3);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art4);
                 ((List<Article>)HttpContext.Application["ArticleList"]).Add(art5);
-                ((List<Article>)HttpContext.Application["ArticleList"]).Add(ad1);
+                ((List<Article>)HttpContext.Application["AdList"]).Add(ad1);
             }
 
-                ((List<Article>)HttpContext.Application["ArticleList"]).OrderBy(x => x.Date);
-            ((List<Article>)HttpContext.Application["ArticleList"]).Reverse();
+            ((List<Article>)HttpContext.Application["ArticleList"]).OrderBy(x => x.Date).Reverse();
+            ((List<Article>)HttpContext.Application["AdList"]).OrderBy(x => x.Date).Reverse();
             List<Article> DisplayList = new List<Article>();
-            for (int i = 2; i < 6; i++)
+            for (int i = 1; i < 5; i++)
             {
                 Article nextArticle = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(i);
                 DisplayList.Add(nextArticle);
@@ -252,12 +264,12 @@ Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor 
             ViewBag.Text1 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(0).Text;
             ViewBag.Picture1 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(0).Picture;
 
-            ViewBag.Headline2 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(1).Headline;
-            ViewBag.Author2 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(1).Author;
-            ViewBag.AuthorPicture2 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(1).AuthorPicture;
-            ViewBag.Date2 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(1).Date;
-            ViewBag.Text2 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(1).Text;
-            ViewBag.Picture2 = ((List<Article>)HttpContext.Application["ArticleList"]).ElementAt(1).Picture;
+            ViewBag.Headline2 = ((List<Article>)HttpContext.Application["AdList"]).ElementAt(0).Headline;
+            ViewBag.Author2 = ((List<Article>)HttpContext.Application["AdList"]).ElementAt(0).Author;
+            ViewBag.AuthorPicture2 = ((List<Article>)HttpContext.Application["AdList"]).ElementAt(0).AuthorPicture;
+            ViewBag.Date2 = ((List<Article>)HttpContext.Application["AdList"]).ElementAt(0).Date;
+            ViewBag.Text2 = ((List<Article>)HttpContext.Application["AdList"]).ElementAt(0).Text;
+            ViewBag.Picture2 = ((List<Article>)HttpContext.Application["AdList"]).ElementAt(0).Picture;
 
 
             return View(DisplayList);
