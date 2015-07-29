@@ -15,7 +15,7 @@ namespace SurfandPaddle
 
             routes.MapRoute(
                 name: "VanityRoute",
-                url: "Post/{ID}",
+                url: "Posts/{ID}",
                 defaults: new { controller = "Posts", action = "ViewAPost", ID = 0 }
                 );
 
