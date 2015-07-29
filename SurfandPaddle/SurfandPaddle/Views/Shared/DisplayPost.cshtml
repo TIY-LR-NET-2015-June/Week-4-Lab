@@ -1,0 +1,17 @@
+﻿@model SurfandPaddle.Models.Posts
+
+<div>
+ <h2>
+            @Html.DisplayFor(model => model.Title)
+        </h2>
+
+        <img src="@Url.Content(Model.Image)" />
+
+        <p>
+            @Html.DisplayFor(model => model.Text)
+        </p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", "Posts", new { id = Model.ID }, null) |
+    @Html.ActionLink("Delete", "Delete", "Posts", Model, null)
+</p>

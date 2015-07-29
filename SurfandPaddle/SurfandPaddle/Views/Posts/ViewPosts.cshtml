@@ -1,0 +1,14 @@
+﻿@model List<SurfandPaddle.Models.Posts>
+
+@{
+    ViewBag.Title = "ViewPosts";
+}
+
+<h2>ViewPosts</h2>
+
+@foreach(var post in Model) {
+<div>
+@Html.Partial("DisplayPost", post)
+<p> Model ID is: @Html.DisplayFor(Model => post.ID)</p>
+</div>
+}

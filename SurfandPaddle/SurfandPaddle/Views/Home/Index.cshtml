@@ -1,0 +1,57 @@
+﻿@model List<SurfandPaddle.Models.Posts>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<!-- Custom Fonts -->
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2>Most recent post</h2>
+                    @Html.Partial("DisplayPost", Model.Last())
+                </a>
+                <button class="btn btn-default" type="submit">Share this post</button>
+                <button class="btn btn-default" type="submit">Read later</button>
+                <button class="btn btn-default" type="submit">Comments</button>
+                <a class="btn btn-default" href="~/Posts/Create">Create a post</a>
+            </div>
+        </div>
+        <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1">
+            <div class="post-preview" style="text-align: center;">
+                <img class="anne-marie" src="https://cdn3.iconfinder.com/data/icons/user-2/100/10-512.png" />
+                <h2>Anne Marie</h2>
+                <p><a class="links" href="www.twitter.com">Twitter</a><a class="links" href="www.facebook.com">Facebook</a><a class="links" href="www.instagram.com">Instagram</a></p>
+                <img class="img-responsive" src="https://safiyahesack.files.wordpress.com/2013/03/big-wave-surfing-wallpapers-1920x1080.jpg" />
+                <section>
+                    <h3>Pellentesque Volutpat</h3>
+                    <p>
+                        Quisque elementum et dui vel feugiat. Vivamus efficitur volutpat dapibus. Donec in vestibulum mi. Vivamus dignissim mauris et felis dignissim, non tempor nunc auctor. Sed lacus arcu, efficitur quis
+                        tincidunt vitae, iaculis in ex. Donec ultricies rhoncus ligula vitae faucibus. Aliquam nec nisl malesuada, feugiat ex congue, venenatis dolor.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-md-12 favoritePosts">
+    <h1>MOST POPULAR POSTS</h1>
+    <a href="~/Post/0"><img  src="~/content/1.jpg" style="width: 10em; height: 10em;" /></a>
+    <a href="~/Post/1"><img  src="~/content/2.png" style="width: 10em; height: 10em;" /></a>
+    <a href="~/Post/2"><img  src="~/content/4.jpg" style="width: 10em; height: 10em;" /></a>
+    <a href="~/Post/3"><img src="~/content/3.jpg" style="width: 10em; height: 10em;" /></a>
+</div>
+
+<hr>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/clean-blog.min.js"></script>
