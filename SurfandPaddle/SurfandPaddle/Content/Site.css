@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+.favoritePosts{
+    text-align: center;
+}
+a {
+    color: inherit;
+    text-align: center;
+}
+#footerImage {
+    max-height: 200px;
+}
