@@ -1,0 +1,76 @@
+﻿@model WebApplication1.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Blog_Layout.cshtml";
+}
+
+
+<div>
+    <h1>@Html.DisplayFor(model => model.Headline)</h1>
+    <div class="col-lg-4 col-md-6 col-sm-10" style="background-image: url('@Html.DisplayFor(model => model.Picture)'); background-size: cover; background-position: center; height: 20em;"></div>
+    <div style="clear: both;"></div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorPicture)
+        </dt>
+
+        <dd>
+            <img style="height: 2em" src="@Html.DisplayFor(model => model.AuthorPicture)"/>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Headline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Headline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Picture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAdvertisement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAdvertisement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
