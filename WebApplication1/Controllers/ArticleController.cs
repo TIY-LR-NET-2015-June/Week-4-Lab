@@ -9,23 +9,44 @@ namespace WebApplication1.Controllers
 {
     public class ArticleController : Controller
     {
-        public List<Article> PullArticleList()
+        public void ArtListExists()
         {
             if (HttpContext.Application["ArticleList"] == null)
             {
                 List<Article> list = new List<Article>();
                 HttpContext.Application["ArticleList"] = list;
             }
-            return (List<Article>)HttpContext.Application["ArticleList"];
+            
         }
-        public List<Article> PullAds()
+        public void AdListExists()
         {
             if (HttpContext.Application["AdList"] == null)
             {
                 List<Article> list = new List<Article>();
                 HttpContext.Application["AdList"] = list;
             }
+        }
+        public List<Article> PullArticleList()
+        {
+            ArtListExists();
+            return (List<Article>)HttpContext.Application["ArticleList"];
+        }
+        public List<Article> PullAds()
+        {
+            AdListExists();
             return (List<Article>)HttpContext.Application["AdList"];
+        }
+        public List<Article> PullAll()
+        {
+            ArtListExists();
+            AdListExists();
+            List<Article> list = new List<Article>();
+            List<Article> adList = new List<Article>();
+            list = (List<Article>)HttpContext.Application["ArticleList"];
+            adList = (List<Article>)HttpContext.Application["AdList"];
+           
+           
+            return ((List<Article>)list.Concat(adList));
         }
         public void StoreArticleList(List<Article> list)
         {
@@ -42,21 +63,24 @@ namespace WebApplication1.Controllers
         // GET: Article
         public ActionResult Index()
         {
-            if (PullArticleList().Count < 5 || PullAds().Count < 1)
+            List<Article> list = new List<Article>();
+            list = PullArticleList();
+            List<Article> adList = new List<Article>();
+            adList = PullAds();
+            if (list.Count < 5 || adList.Count < 1)
             {
                 Seed();
             }
-            List<Article> list = new List<Article>();
-            list = PullArticleList();
-            list.AddRange(PullAds());
-            return View(list);
+           
+            
+            return View(PullAll());
         }
 
         // GET: Article/Details/5
         public ActionResult Details(string id)
         {
            
-            Article a = (PullArticleList()).Find(x => x.Id == id);
+            Article a = (PullAll()).Find(x => x.Id == id);
             if (a == null)
             {
                 return RedirectToAction("Index");
@@ -81,19 +105,23 @@ namespace WebApplication1.Controllers
             }
            
             a.Id = Guid.NewGuid().ToString();
-            List<Article> list = PullArticleList();
-            List<Article> adList = PullAds();
+           
+           
             
             if (a.isAdvertisement)
             {
-                adList.Add(a); 
+                List<Article> adList = PullAds();
+                adList.Add(a);
+                StoreAds(adList);
             }
             else
             {
+                List<Article> list = PullArticleList();
                 list.Add(a);
+                StoreArticleList(list);
             }
-            StoreArticleList(list);
-            StoreAds(adList);
+            
+           
             try
             {
                 // TODO: Add insert logic here
@@ -109,7 +137,7 @@ namespace WebApplication1.Controllers
         // GET: Article/Edit/5
         public ActionResult Edit(string id)
         {
-            Article a = (PullArticleList()).Find(x => x.Id == id);
+            Article a = (PullAll()).Find(x => x.Id == id);
             if (a == null)
             {
                 return RedirectToAction("Index");
@@ -125,13 +153,24 @@ namespace WebApplication1.Controllers
             try
             {
                 // TODO: Add update logic here
-                List<Article> list = PullArticleList();
-                Article oldArticle = (list).Find(x => x.Id == id);
-                (list).Remove(oldArticle);
-                editedArticle.Id = id;
-                (list).Add(editedArticle);
-                StoreArticleList(list);
-
+              
+                Article oldArticle = (PullAll()).Find(x => x.Id == id);
+                if (oldArticle.isAdvertisement)
+                {
+                    List<Article> list = PullAds();
+                    list.Remove(oldArticle);
+                    editedArticle.Id = id;
+                    list.Add(editedArticle);
+                    StoreAds(list);
+                }
+                else
+                {
+                    List<Article> list = PullArticleList();
+                    list.Remove(oldArticle);
+                    editedArticle.Id = id;
+                    list.Add(editedArticle);
+                    StoreArticleList(list);
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -144,7 +183,7 @@ namespace WebApplication1.Controllers
         public ActionResult Delete(string id)
         {
 
-            Article a = (PullArticleList()).Find(x => x.Id == id);
+            Article a = (PullAll()).Find(x => x.Id == id);
             return View(a);
         }
 
@@ -152,13 +191,24 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Delete(string id, Article article)
         {
+           
             try
             {
+
                 // TODO: Add delete logic here
-                List<Article> list = PullArticleList();
-                Article a = (list).Find(x => x.Id == id);
-                (list).Remove(a);
-                StoreArticleList(list);
+                Article a = (PullAll()).Find(x => x.Id == id);
+                if (a.isAdvertisement)
+                {
+                    List<Article> list = PullAds();
+                    list.Remove(a);
+                    StoreAds(list);
+                }
+                else
+                {
+                    List<Article> list = PullArticleList();
+                    list.Remove(a);
+                    StoreArticleList(list);
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -184,7 +234,7 @@ namespace WebApplication1.Controllers
                 Article art1 = new Article();
                 art1.Author = "John Doe";
                 art1.Headline = "A Fantastic Engaging Headline Goes Here!";
-                art1.Picture = "~/Content/assets/wave.jpg";
+                art1.Picture = "/Content/assets/wave.jpg";
                 art1.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
