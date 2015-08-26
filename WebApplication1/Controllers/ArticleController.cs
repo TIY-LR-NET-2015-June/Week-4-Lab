@@ -42,22 +42,24 @@ namespace WebApplication1.Controllers
         // GET: Article
         public ActionResult Index()
         {
-            if (PullArticleList() == null)
+            if (PullArticleList().Count < 5 || PullAds().Count < 1)
             {
                 Seed();
             }
-            
-            return View(PullArticleList());
+            List<Article> list = new List<Article>();
+            list = PullArticleList();
+            list.AddRange(PullAds());
+            return View(list);
         }
 
         // GET: Article/Details/5
-        public ActionResult Details(Guid id)
+        public ActionResult Details(string id)
         {
            
             Article a = (PullArticleList()).Find(x => x.Id == id);
             if (a == null)
             {
-                Seed();
+                return RedirectToAction("Index");
             }
             return View(a);
         }
@@ -78,7 +80,7 @@ namespace WebApplication1.Controllers
                 return View(a);
             }
            
-            a.Id = Guid.NewGuid();
+            a.Id = Guid.NewGuid().ToString();
             List<Article> list = PullArticleList();
             List<Article> adList = PullAds();
             
@@ -105,19 +107,19 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Article/Edit/5
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(string id)
         {
             Article a = (PullArticleList()).Find(x => x.Id == id);
             if (a == null)
             {
-                Seed();
+                return RedirectToAction("Index");
             }
             return View(a);
         }
 
         // POST: Article/Edit/5
         [HttpPost]
-        public ActionResult Edit(Guid id, Article editedArticle)
+        public ActionResult Edit(string id, Article editedArticle)
         {
             
             try
@@ -139,7 +141,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Article/Delete/5
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(string id)
         {
 
             Article a = (PullArticleList()).Find(x => x.Id == id);
@@ -148,7 +150,7 @@ namespace WebApplication1.Controllers
 
         // POST: Article/Delete/5
         [HttpPost]
-        public ActionResult Delete(Guid id, Article article)
+        public ActionResult Delete(string id, Article article)
         {
             try
             {
@@ -195,7 +197,7 @@ namespace WebApplication1.Controllers
                 art1.AuthorPicture = "/Content/assets/mike.jpg";
                 art1.Date = DateTime.Today;
                 art1.isAdvertisement = false;
-                art1.Id = Guid.NewGuid();
+                art1.Id = Guid.NewGuid().ToString();
                 list.Add(art1);
           
                 Article art2 = new Article();
@@ -214,7 +216,7 @@ namespace WebApplication1.Controllers
                 art2.AuthorPicture = "/Content/assets/mike.jpg";
                 art2.Date = DateTime.Today;
                 art2.isAdvertisement = false;
-                art2.Id = Guid.NewGuid();
+                art2.Id = Guid.NewGuid().ToString();
                 list.Add(art2);
            
                 Article art3 = new Article();
@@ -233,13 +235,13 @@ namespace WebApplication1.Controllers
                 art3.AuthorPicture = "/Content/assets/mike.jpg";
                 art3.Date = DateTime.Today;
                 art3.isAdvertisement = false;
-                art3.Id = Guid.NewGuid();
+                art3.Id = Guid.NewGuid().ToString();
                 list.Add(art3);
           
                 Article art4 = new Article();
                 art4.Author = "Janet Reno";
                 art4.Headline = "Another Post Post Title";
-                art4.Picture = "/Content/assets/surfboarddude.jpg";
+                art4.Picture = "/Content/assets/bottles.jpg";
                 art4.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
@@ -252,13 +254,13 @@ namespace WebApplication1.Controllers
                 art4.AuthorPicture = "/Content/assets/mike.jpg";
                 art4.Date = DateTime.Today;
                 art4.isAdvertisement = false;
-                art4.Id = Guid.NewGuid();
+                art4.Id = Guid.NewGuid().ToString();
                 list.Add(art4);
            
                 Article art5 = new Article();
                 art5.Author = "Janet Reno";
                 art5.Headline = "And yet another Post Title";
-                art5.Picture = "/Content/assets/surfboarddude.jpg";
+                art5.Picture = "/Content/assets/zachgalifanakis.jpg";
                 art5.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
@@ -271,14 +273,15 @@ namespace WebApplication1.Controllers
                 art5.AuthorPicture = "/Content/assets/mike.jpg";
                 art5.Date = DateTime.Today;
                 art5.isAdvertisement = false;
-                art5.Id = Guid.NewGuid();
+                art5.Id = Guid.NewGuid().ToString();
+                list.Add(art5);
             }
             if ( adList == null || adList.Count < 1)
             {
                 Article ad1 = new Article();
                 ad1.Author = "Janet Reno";
-                ad1.Headline = "Advert Title";
-                ad1.Picture = "/Content/assets/surfboarddude.jpg";
+                ad1.Headline = "An Interesting Sponsored Article";
+                ad1.Picture = "/Content/assets/paddleboarder.jpg";
                 ad1.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
@@ -291,7 +294,7 @@ namespace WebApplication1.Controllers
                 ad1.AuthorPicture = "/Content/assets/mike.jpg";
                 ad1.Date = DateTime.Today;
                 ad1.isAdvertisement = true;
-                ad1.Id = Guid.NewGuid();
+                ad1.Id = Guid.NewGuid().ToString();
                 adList.Add(ad1);
             }
             StoreArticleList(list);
