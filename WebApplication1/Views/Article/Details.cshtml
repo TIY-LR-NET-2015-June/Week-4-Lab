@@ -1,0 +1,18 @@
+﻿@model WebApplication1.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Blog_Layout.cshtml";
+}
+<img src='@Model.Picture' />
+<h2>@Model.Headline</h2>
+<div id="byline">
+    <img src="@Model.AuthorPicture" /> <span id="name">@Model.Author</span> on <span id="date">@Model.Date</span>
+</div>
+<div>@Model.Text</div>
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

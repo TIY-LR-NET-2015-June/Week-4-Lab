@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Surf & Paddle</title>
+    <!-- Bootstrap -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="top-banner">
+        <!--top banner section-->
+        <div class="tint">
+            <nav id="top-navbar">
+                <!--top navbar section-->
+                <!--right side links-->
+                <ul class="pull-right hide-when-small">
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="http://www.google.com">SEARCH<span class="glyphicon glyphicon-search"></span></a><!--search glyph--></li>
+                </ul>
+                <ul class="hide-when-large">
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="http://www.google.com">SEARCH<span class="glyphicon glyphicon-search"></span></a><!--search glyph--></li>
+                </ul>
+                <div id="blog" class="pull-left hide-when-small">
+                    <!--left side blog link-->
+                    <!--wave logo-->
+                    <a href=@Url.Action("Main")><img src="~/Content/assets/wave-icon.png" />SURF & PADDLE CO. BLOG<!--Surf & Paddle Co. Blog--></a>
+                </div>
+                <div id="blog" class="hide-when-large">
+                    <a href="http://mknull.wordpress.com"><img src="~/Content/assets/wave-icon.png" /></a>
+                </div>
+            </nav><!-- end top navbar section-->
+            <div id="headline">
+                <h1>SURF & PADDLE CO.</h1>
+                <p id="subheadline">An Ironyard Project Est. Fall 2013</p>
+            </div>
+        </div>
+    </div><!--end top banner section-->
+
+
+    <div class="container body-content">
+        @RenderBody()
+        </div>
+        <div id="separator">
+        </div>
+        <!--image of horizontal bar to separate sections-->
+        <div id="bottom-navbar">
+            <!--bottom navbar section-->
+            <div id="bottom-right-nav" class="pull-right">
+                <!--bottom right nav menu-->
+                <!--bottom right nav menu links-->
+                <ul>
+                    <li><a href="@Url.Action("Main")">Main Page</a></li>
+                    <li><a href="@Url.Action("Index")">List of Articles</a></li>
+                    <li><a href="@Url.Action("Create")">Create a Post</a></li>
+                    <li><a href="http://mknull.wordpress.com">Mike's Business and Economics Blog</a></li>
+                </ul>
+            </div><!-- end bottom right nav menu-->
+            <div id="bottom-left-nav">
+                <!--bottom left nav menu-->
+                <!--TIY logo-->
+                <p id="copyright"><span><img src="~/Content/assets/tiy-standard-logo.png" /></span>The Ironyard Copyright 2013. All Rights Reserved.</p><!--copyright-->
+            </div><!--end bottom left nav menu-->
+        </div><!--end bottom navbar section-->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

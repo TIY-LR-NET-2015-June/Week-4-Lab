@@ -1,0 +1,185 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+
+li{
+ 	display: inline;
+ 	list-style-type: none;
+ 	margin: 2em;
+ }
+#top-navbar{
+    margin-top: 0em;
+    background-image:inherit;
+}
+#top-banner{
+    margin-top: 0em;
+    text-align:center;
+    background-image: url("assets/wave.jpg");
+    background-size:cover;
+    background-position:center;
+    color: black;
+}
+#top-banner a:link{
+    color:black;
+}
+#top-banner a:visited{
+    color:black;
+}
+#top-banner.h1{
+    vertical-align:middle;
+}
+
+#headline h1{
+    color: white;
+}
+
+#byline img{
+    border-radius: 50%;
+    height: 2em;
+}
+#name{
+    color:blue;
+
+}
+#date{
+    color:black;
+    text-decoration-line:underline;
+}
+#main-text{
+    padding: 4em 4em 4em 4em;
+   
+}
+#inline-quote{
+    width: inherit;
+    border-left:solid;
+    text-align: center;
+    border-color: lightblue;
+}
+#sidebar{
+    padding: 2em;
+}
+#author-info{
+    text-align:center;
+}
+#author-info li{
+    font-size: .6em;
+    display: inline;
+    list-style-type: none;
+}
+
+#sidebar img{
+    width: 100%;
+}
+ #separator{
+ 	clear:both;
+ 	width: 100%;
+ }
+ #popular-posts{
+
+     text-align:center;
+     height: auto;
+     border-top: solid;
+     border-color: lightblue;
+     margin: 2em 2em 0em 2em;
+ }
+ #popular-posts div{
+    padding: 0px;
+ }
+ #post1{
+     background-size: cover;
+     background-position:center;
+     height:20em;
+ }
+ #bottom-navbar{
+     clear:both;
+     background-color:black;
+     color: white;
+     margin: 0em 2em 0em 2em;
+ }
+ #bottom-navbar a{
+     color: white;
+ }
+ #copyright img{
+     height: 4em;
+ }
+ #bottom-right-nav{
+     padding: 2em;
+    
+ }
+ .pull-left img{
+     height: 4em;
+ }
+.overlay{
+    background: rgba(85, 180, 180, 0.8);
+    width: 100%;
+    height: 100%;
+    vertical-align: bottom;
+    color: white;
+    font-size: 2em;
+}
+.overlay:hover{
+    background: rgba(180, 180, 0, 0);
+    color: black;
+    font-size: 3em;
+}
+.tint{
+    background: rgba(85, 180, 180, 0.8);
+    width: 100%;
+    height: 100%;
+}
+#author-info img{
+    border-radius: 50%;
+    height: 8em;
+    width: 8em;
+}
+@media only screen and (max-width: 1026px){
+    .hide-when-small{
+        display:none;
+    }
+    h1{
+        font-size: 3em;
+    }
+    #top-banner{
+        height: 20em;
+    }
+    #headline{
+        padding: 2em 0em 2em 0em;
+    }
+}
+@media only screen and (min-width: 1026px){
+    .hide-when-large{
+        display:none;
+    }
+    h1{
+        font-size: 6em;
+    }
+    #top-banner{
+        height: 30em;
+    }
+    #headline{
+  padding: 18em 0em 18em 0em;
+    }
+}
