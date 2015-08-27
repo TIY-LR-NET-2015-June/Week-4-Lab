@@ -36,17 +36,14 @@ namespace WebApplication1.Controllers
             AdListExists();
             return (List<Article>)HttpContext.Application["AdList"];
         }
-        public List<Article> PullAll()
+        public IEnumerable<Article> PullAll()
         {
-            ArtListExists();
-            AdListExists();
-            List<Article> list = new List<Article>();
-            List<Article> adList = new List<Article>();
-            list = (List<Article>)HttpContext.Application["ArticleList"];
-            adList = (List<Article>)HttpContext.Application["AdList"];
+            
+            List<Article> list = PullArticleList();
+            List<Article> adList = PullAds();
+            var all = list.Concat(adList);
            
-           
-            return ((List<Article>)list.Concat(adList));
+            return (all);
         }
         public void StoreArticleList(List<Article> list)
         {
@@ -80,7 +77,7 @@ namespace WebApplication1.Controllers
         public ActionResult Details(string id)
         {
            
-            Article a = (PullAll()).Find(x => x.Id == id);
+            Article a = (PullAll()).FirstOrDefault(x => x.Id == id);
             if (a == null)
             {
                 return RedirectToAction("Index");
@@ -137,7 +134,7 @@ namespace WebApplication1.Controllers
         // GET: Article/Edit/5
         public ActionResult Edit(string id)
         {
-            Article a = (PullAll()).Find(x => x.Id == id);
+            Article a = (PullAll()).FirstOrDefault(x => x.Id == id);
             if (a == null)
             {
                 return RedirectToAction("Index");
@@ -154,7 +151,7 @@ namespace WebApplication1.Controllers
             {
                 // TODO: Add update logic here
               
-                Article oldArticle = (PullAll()).Find(x => x.Id == id);
+                Article oldArticle = (PullAll()).First(x => x.Id == id);
                 if (oldArticle.isAdvertisement)
                 {
                     List<Article> list = PullAds();
@@ -183,7 +180,7 @@ namespace WebApplication1.Controllers
         public ActionResult Delete(string id)
         {
 
-            Article a = (PullAll()).Find(x => x.Id == id);
+            Article a = (PullAll()).FirstOrDefault(x => x.Id == id);
             return View(a);
         }
 
@@ -196,7 +193,7 @@ namespace WebApplication1.Controllers
             {
 
                 // TODO: Add delete logic here
-                Article a = (PullAll()).Find(x => x.Id == id);
+                Article a = (PullAll()).FirstOrDefault(x => x.Id == id);
                 if (a.isAdvertisement)
                 {
                     List<Article> list = PullAds();
@@ -229,13 +226,14 @@ namespace WebApplication1.Controllers
             list = PullArticleList();
             List<Article> adList = new List<Article>();
             adList = PullAds();
-            if (list == null || list.Count < 5)
-            {
-                Article art1 = new Article();
-                art1.Author = "John Doe";
-                art1.Headline = "A Fantastic Engaging Headline Goes Here!";
-                art1.Picture = "/Content/assets/wave.jpg";
-                art1.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
+      
+                if ((list == null || list.Count < 5) && (!list.Any(x => x.Headline == "A Fantastic Engaging Headline Goes Here!")))
+                {
+                    Article art1 = new Article();
+                    art1.Author = "John Doe";
+                    art1.Headline = "A Fantastic Engaging Headline Goes Here!";
+                    art1.Picture = "/Content/assets/wave.jpg";
+                    art1.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
                 
@@ -244,17 +242,21 @@ namespace WebApplication1.Controllers
                 Sed maximus eu purus et gravida. Etiam eu risus vel massa vulputate vulputate.Phasellus mattis eleifend quam, ac varius metus vulputate faucibus. Donec laoreet sem sit amet orci imperdiet fringilla. Donec convallis nunc diam, sit amet blandit felis vestibulum non.Nunc at sapien ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam eget erat consectetur, consectetur turpis vel, eleifend eros.Fusce in maximus ligula, vitae blandit mauris.
                 
                 Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor aliquam scelerisque. Fusce ac quam turpis. Praesent at vestibulum metus. Donec vel commodo dolor. Morbi malesuada nulla quis dictum elementum. In vestibulum, nulla fermentum efficitur pretium, orci dolor cursus enim, varius venenatis neque urna viverra est.Quisque tincidunt tristique ex, ut finibus magna accumsan sed. Sed sed risus malesuada, aliquet libero ut, pellentesque est.Pellentesque aliquam augue tellus, luctus iaculis tortor mattis eu. Nullam gravida sollicitudin faucibus. Donec gravida sodales nunc eget viverra. Praesent sit amet blandit libero.Proin at massa in quam ultricies tincidunt eu ac magna. Suspendisse potenti.";
-                art1.AuthorPicture = "/Content/assets/mike.jpg";
-                art1.Date = DateTime.Today;
-                art1.isAdvertisement = false;
-                art1.Id = Guid.NewGuid().ToString();
-                list.Add(art1);
-          
-                Article art2 = new Article();
-                art2.Author = "Tom Slick";
-                art2.Headline = "Another Cool Post!";
-                art2.Picture = "/Content/assets/beer.jpg";
-                art2.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
+                    art1.AuthorPicture = "/Content/assets/mike.jpg";
+                    art1.Date = DateTime.Today;
+                    art1.isAdvertisement = false;
+                    art1.Id = Guid.NewGuid().ToString();
+                    list.Add(art1);
+                }
+
+
+                if ((list == null || list.Count < 5) && (!list.Any(x => x.Headline == "Another Cool Post!")))
+                {
+                    Article art2 = new Article();
+                    art2.Author = "Tom Slick";
+                    art2.Headline = "Another Cool Post!";
+                    art2.Picture = "/Content/assets/beer.jpg";
+                    art2.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
                 
@@ -263,17 +265,20 @@ namespace WebApplication1.Controllers
                 Sed maximus eu purus et gravida. Etiam eu risus vel massa vulputate vulputate.Phasellus mattis eleifend quam, ac varius metus vulputate faucibus. Donec laoreet sem sit amet orci imperdiet fringilla. Donec convallis nunc diam, sit amet blandit felis vestibulum non.Nunc at sapien ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam eget erat consectetur, consectetur turpis vel, eleifend eros.Fusce in maximus ligula, vitae blandit mauris.
                 
                 Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor aliquam scelerisque. Fusce ac quam turpis. Praesent at vestibulum metus. Donec vel commodo dolor. Morbi malesuada nulla quis dictum elementum. In vestibulum, nulla fermentum efficitur pretium, orci dolor cursus enim, varius venenatis neque urna viverra est.Quisque tincidunt tristique ex, ut finibus magna accumsan sed. Sed sed risus malesuada, aliquet libero ut, pellentesque est.Pellentesque aliquam augue tellus, luctus iaculis tortor mattis eu. Nullam gravida sollicitudin faucibus. Donec gravida sodales nunc eget viverra. Praesent sit amet blandit libero.Proin at massa in quam ultricies tincidunt eu ac magna. Suspendisse potenti.";
-                art2.AuthorPicture = "/Content/assets/mike.jpg";
-                art2.Date = DateTime.Today;
-                art2.isAdvertisement = false;
-                art2.Id = Guid.NewGuid().ToString();
-                list.Add(art2);
-           
-                Article art3 = new Article();
-                art3.Author = "Janet Reno";
-                art3.Headline = "Post Title";
-                art3.Picture = "/Content/assets/surfboarddude.jpg";
-                art3.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
+                    art2.AuthorPicture = "/Content/assets/mike.jpg";
+                    art2.Date = DateTime.Today;
+                    art2.isAdvertisement = false;
+                    art2.Id = Guid.NewGuid().ToString();
+                    list.Add(art2);
+                }
+
+                if ((list == null || list.Count < 5) && (!list.Any(x => x.Headline == "Post Title")))
+                {
+                    Article art3 = new Article();
+                    art3.Author = "Janet Reno";
+                    art3.Headline = "Post Title";
+                    art3.Picture = "/Content/assets/surfboarddude.jpg";
+                    art3.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
                 
@@ -282,17 +287,20 @@ namespace WebApplication1.Controllers
                 Sed maximus eu purus et gravida. Etiam eu risus vel massa vulputate vulputate.Phasellus mattis eleifend quam, ac varius metus vulputate faucibus. Donec laoreet sem sit amet orci imperdiet fringilla. Donec convallis nunc diam, sit amet blandit felis vestibulum non.Nunc at sapien ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam eget erat consectetur, consectetur turpis vel, eleifend eros.Fusce in maximus ligula, vitae blandit mauris.
                 
                 Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor aliquam scelerisque. Fusce ac quam turpis. Praesent at vestibulum metus. Donec vel commodo dolor. Morbi malesuada nulla quis dictum elementum. In vestibulum, nulla fermentum efficitur pretium, orci dolor cursus enim, varius venenatis neque urna viverra est.Quisque tincidunt tristique ex, ut finibus magna accumsan sed. Sed sed risus malesuada, aliquet libero ut, pellentesque est.Pellentesque aliquam augue tellus, luctus iaculis tortor mattis eu. Nullam gravida sollicitudin faucibus. Donec gravida sodales nunc eget viverra. Praesent sit amet blandit libero.Proin at massa in quam ultricies tincidunt eu ac magna. Suspendisse potenti.";
-                art3.AuthorPicture = "/Content/assets/mike.jpg";
-                art3.Date = DateTime.Today;
-                art3.isAdvertisement = false;
-                art3.Id = Guid.NewGuid().ToString();
-                list.Add(art3);
-          
-                Article art4 = new Article();
-                art4.Author = "Janet Reno";
-                art4.Headline = "Another Post Post Title";
-                art4.Picture = "/Content/assets/bottles.jpg";
-                art4.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
+                    art3.AuthorPicture = "/Content/assets/mike.jpg";
+                    art3.Date = DateTime.Today;
+                    art3.isAdvertisement = false;
+                    art3.Id = Guid.NewGuid().ToString();
+                    list.Add(art3);
+                }
+
+                if ((list == null || list.Count < 5) && (!list.Any(x => x.Headline == "Another Post Post Title")))
+                {
+                    Article art4 = new Article();
+                    art4.Author = "Janet Reno";
+                    art4.Headline = "Another Post Post Title";
+                    art4.Picture = "/Content/assets/bottles.jpg";
+                    art4.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
                 
@@ -301,17 +309,20 @@ namespace WebApplication1.Controllers
                 Sed maximus eu purus et gravida. Etiam eu risus vel massa vulputate vulputate.Phasellus mattis eleifend quam, ac varius metus vulputate faucibus. Donec laoreet sem sit amet orci imperdiet fringilla. Donec convallis nunc diam, sit amet blandit felis vestibulum non.Nunc at sapien ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam eget erat consectetur, consectetur turpis vel, eleifend eros.Fusce in maximus ligula, vitae blandit mauris.
                 
                 Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor aliquam scelerisque. Fusce ac quam turpis. Praesent at vestibulum metus. Donec vel commodo dolor. Morbi malesuada nulla quis dictum elementum. In vestibulum, nulla fermentum efficitur pretium, orci dolor cursus enim, varius venenatis neque urna viverra est.Quisque tincidunt tristique ex, ut finibus magna accumsan sed. Sed sed risus malesuada, aliquet libero ut, pellentesque est.Pellentesque aliquam augue tellus, luctus iaculis tortor mattis eu. Nullam gravida sollicitudin faucibus. Donec gravida sodales nunc eget viverra. Praesent sit amet blandit libero.Proin at massa in quam ultricies tincidunt eu ac magna. Suspendisse potenti.";
-                art4.AuthorPicture = "/Content/assets/mike.jpg";
-                art4.Date = DateTime.Today;
-                art4.isAdvertisement = false;
-                art4.Id = Guid.NewGuid().ToString();
-                list.Add(art4);
-           
-                Article art5 = new Article();
-                art5.Author = "Janet Reno";
-                art5.Headline = "And yet another Post Title";
-                art5.Picture = "/Content/assets/zachgalifanakis.jpg";
-                art5.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
+                    art4.AuthorPicture = "/Content/assets/mike.jpg";
+                    art4.Date = DateTime.Today;
+                    art4.isAdvertisement = false;
+                    art4.Id = Guid.NewGuid().ToString();
+                    list.Add(art4);
+                }
+
+                if ((list == null || list.Count < 5) && (!list.Any(x => x.Headline == "And yet another Post Title")))
+                {
+                    Article art5 = new Article();
+                    art5.Author = "Janet Reno";
+                    art5.Headline = "And yet another Post Title";
+                    art5.Picture = "/Content/assets/zachgalifanakis.jpg";
+                    art5.Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, enim vel gravida tempus, magna tellus elementum neque, nec tempus tellus augue accumsan libero. Praesent aliquam, orci eu tristique rutrum, orci ipsum pulvinar nunc, id cursus odio nunc nec turpis. Suspendisse id tincidunt libero, dictum luctus tellus. Aliquam condimentum erat augue, et facilisis sem euismod id. Quisque eros risus, semper et semper nec, sodales eu tellus. Nunc sodales quam eget tortor fermentum, at placerat ante ornare. Quisque ac dui nisi. In hac habitasse platea dictumst. Aliquam ex odio, lacinia quis purus a, blandit eleifend purus. Sed a sem congue, convallis nisl in, sollicitudin dui. Sed nec elit sit amet lorem suscipit congue. Integer iaculis tortor sit amet arcu dapibus, quis cursus tellus egestas. Nunc ac orci tortor. Proin at ipsum accumsan, egestas massa vel, venenatis metus. Vestibulum ac porta velit, bibendum vestibulum ligula. Aliquam pretium venenatis nunc, non iaculis est cursus nec.
 
                 Vestibulum rutrum molestie scelerisque. Pellentesque massa ex, iaculis sit amet tempor vitae, pulvinar interdum eros.Vestibulum vestibulum nisl euismod feugiat vulputate. Donec maximus lacinia rutrum. Ut finibus aliquam tortor, ut condimentum massa volutpat rutrum. Aenean ut nisl a urna imperdiet tincidunt.Mauris quis dictum quam.
                 
@@ -320,14 +331,17 @@ namespace WebApplication1.Controllers
                 Sed maximus eu purus et gravida. Etiam eu risus vel massa vulputate vulputate.Phasellus mattis eleifend quam, ac varius metus vulputate faucibus. Donec laoreet sem sit amet orci imperdiet fringilla. Donec convallis nunc diam, sit amet blandit felis vestibulum non.Nunc at sapien ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam eget erat consectetur, consectetur turpis vel, eleifend eros.Fusce in maximus ligula, vitae blandit mauris.
                 
                 Donec viverra finibus justo, semper dignissim magna vestibulum et. Morbi auctor aliquam scelerisque. Fusce ac quam turpis. Praesent at vestibulum metus. Donec vel commodo dolor. Morbi malesuada nulla quis dictum elementum. In vestibulum, nulla fermentum efficitur pretium, orci dolor cursus enim, varius venenatis neque urna viverra est.Quisque tincidunt tristique ex, ut finibus magna accumsan sed. Sed sed risus malesuada, aliquet libero ut, pellentesque est.Pellentesque aliquam augue tellus, luctus iaculis tortor mattis eu. Nullam gravida sollicitudin faucibus. Donec gravida sodales nunc eget viverra. Praesent sit amet blandit libero.Proin at massa in quam ultricies tincidunt eu ac magna. Suspendisse potenti.";
-                art5.AuthorPicture = "/Content/assets/mike.jpg";
-                art5.Date = DateTime.Today;
-                art5.isAdvertisement = false;
-                art5.Id = Guid.NewGuid().ToString();
-                list.Add(art5);
-            }
+                    art5.AuthorPicture = "/Content/assets/mike.jpg";
+                    art5.Date = DateTime.Today;
+                    art5.isAdvertisement = false;
+                    art5.Id = Guid.NewGuid().ToString();
+                    list.Add(art5);
+                }
+                    
+            
             if ( adList == null || adList.Count < 1)
             {
+               
                 Article ad1 = new Article();
                 ad1.Author = "Janet Reno";
                 ad1.Headline = "An Interesting Sponsored Article";
