@@ -1,0 +1,70 @@
+﻿@model Week4Lab.Models.Post
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-7 col-xs-offset-1 text-center">
+            <h1 class="firstHeader"><b>@Model.Title</b></h1>
+            <img src="~/Content/Images/surf.jpg" class="img-circle" hight="30" width="30">&nbsp @Model.Author&nbsp&nbspPosted @Model.DatePosted.ToShortDateString()</img>
+            <br>
+                <br>
+
+            <p class="para">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.Donec id elit commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem mali.Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.</p>
+            <br>
+            <h1>Welcome</h1>
+            <br>
+            <p class="para">Donec sed odio dui.Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Done </p>
+            <br>
+            <br>
+            <a href="https://www.google.com/" class="btn btn-primary btn-lg active" role="button">Google</a>
+        </div>
+        <div class="col-xs-3 text-center">
+            <h2><B>Whatever</B></h2>
+            <img src="~/Content/Images/surf.jpg" class="img-circle" hight="50" width="50"</img>
+            <p class="name">Billy Bob</p>
+            <a href="https://www.Facebook.com/">Facebook</a>&nbsp <a href="https://www.Pinterest.com/">Pinterest</a>&nbsp <a href="https://www.Twitter.com/">Twitter</a>
+            <br>
+            <br>
+            <img src="~/Content/Images/paddle.jpg" /></img>
+            <br>
+            <br>
+            <p class="para2">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nib dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Done </p>
+        </div>
+    </div>
+</div>
