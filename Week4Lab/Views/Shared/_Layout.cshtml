@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid header">
+            <div class="col-xs-12 text-center">
+                <p class="pagetitle">SURF & PADDLE CO.</p>
+                <p class="underpagetitle">An Iron Yard Project Est. 2013</p>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    <br>
+    <br>
+    <br>
+    <div>
+        <h1 class="secondHeader">More Selctions</h1>
+        <br>
+        <br>
+        <br>
+        <div class="row-fluid">
+            <div class="col-xs-3 blogimage">
+                <img src="~/Content/Images/surf.jpg" />
+            </div>
+            <div class="col-xs-3 blogimage">
+                <img src="~/Content/Images/shark.jpg" />
+            </div>
+            <div class="col-xs-3 blogimage">
+                <img src="~/Content/Images/sand.jpg" />
+            </div>
+            <div class="col-xs-3 blogimage">
+                <img src="~/Content/Images/nemo.jpeg" />
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p>&copy; Company 2014</p>
+    </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

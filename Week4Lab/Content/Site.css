@@ -1,0 +1,68 @@
+﻿.header{
+	background-image: url("/content/images/tidal-wave-surfing.jpg");
+   height:300px	;
+   background-repeat: no-repeat;
+   background-size: cover;
+
+}
+.titleHead{
+   font-size: 400%;
+}
+.pagetitle{
+   font-size: 500%;
+	color: white;
+    line-height: 3em;
+}
+
+.underpagetitle{
+   
+   font-size: 100%;
+   color: white;
+   margin-bottom: 200px;
+}
+
+.blogimage {
+   overflow: hidden;
+   padding-left:3px;
+   padding-right:3px;
+}
+
+.blogimage img:hover{
+	width:100%;
+    
+}
+
+.firstHeader{
+   font-size: 300%;
+   text-align: center;
+}
+
+  
+}
+
+.blogimage img:hover {
+    border: 5px solid grey;
+}
+.name{
+   color: blue;
+   font-weight: bold;
+}
+.links{
+   color: grey;
+   word-spacing: 10px;
+   line-height: 1px;
+}
+.para{
+    margin-right: 110px;
+    margin-left: 110px;
+
+}
+.para2{
+   margin-left: 50px;
+   margin-right: 50px;
+}
+.secondHeader{
+   text-align: center;
+   font-size: 400%;
+   font-weight: bold;
+}
